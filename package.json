@@ -1,0 +1,10 @@
+{
+	"name": "innotek_api_server",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Innotek api server",
+	"dependencies": {
+		"mongoose": "3.8.17",
+		"restify": "2.8.3"
+	}
+}
