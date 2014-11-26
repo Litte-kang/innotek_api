@@ -5,7 +5,7 @@ var PORT = 8080;
 
 var server = restify.createServer({
 	name: 'Innotek API server',
-	version: '1.0.0'
+	version: '0.0.1'
 });
 
 
@@ -13,6 +13,17 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.jsonp());
 server.use(restify.bodyParser());
+//server.use(restify.CORS());
+//server.use(restify.fullResponse());
+
+server.use(
+  function crossOrigin(req,res,next){
+  	res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    return next();
+  }
+);
 
 server.listen(PORT, function(){
 	console.log('%s listening at %s', server.name, server.url);
@@ -46,13 +57,14 @@ function getLastInformationsByType(req, res, next){
 	})
 }
 
-function getStatus(req, res, next){
+function getStatuses(req, res, next){
 	Status.find().exec(function(err, data){
 		if(err){
 			console.log('Get status error');
 			next(err);
 		}else{
-			res.send(data);
+			console.log('Get status ' + data);
+			res.send({statuses: data});
 			next();
 		}
 	});
@@ -61,4 +73,4 @@ function getStatus(req, res, next){
 server.get('/informations', getInformations);
 server.get('/informations/types/:type_id', getLastInformationsByType);
 
-server.get('/status', getStatus);
+server.get('/statuses', getStatuses);
