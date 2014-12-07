@@ -10,6 +10,6 @@ var schema = new Schema({
 	created_at:  	{type: Date, default: Date.now}
 });
 
-var Information = mongoose.model('Information', schema);
+var Information = mongoose.model('Information', schema, 'information_t');
 
 module.exports = Information;
