@@ -58,7 +58,7 @@ function getLastInformationsByType(req, res, next){
 }
 
 function getStatuses(req, res, next){
-	Status.find().exec(function(err, data){
+	Status.find({infoType:0}).exec(function(err, data){
 		if(err){
 			console.log('Get status error');
 			next(err);
