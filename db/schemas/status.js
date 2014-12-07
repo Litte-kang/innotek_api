@@ -6,9 +6,9 @@ var schema = new Schema({
 
 	infoType: 		{type: Number, default: 0},
 	address:   		String,
-	information: 	[Number],
+	information: 	[Object],
 	ip:              String,
 	updatedAt:  	{type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Status', schema, 'status');
+module.exports = mongoose.model('Status', schema, 'status_t');
