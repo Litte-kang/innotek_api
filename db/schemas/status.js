@@ -6,7 +6,7 @@ var schema = new Schema({
 
 	infoType: 		{type: Number, default: 0},
 	address:   		String,
-	information: 	[Object],
+	information: 	[Schema.Types.Mixed],
 	ip:              String,
 	updatedAt:  	{type: Date, default: Date.now}
 });
