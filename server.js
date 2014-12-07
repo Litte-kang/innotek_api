@@ -1,6 +1,6 @@
 var restify = require('restify');
 var Information = require('./db/schemas/information');
-var Status = require('./db/schemas/status_t');
+var Status = require('./db/schemas/status');
 var PORT = 8080;
 
 var server = restify.createServer({
