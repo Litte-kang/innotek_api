@@ -60,7 +60,7 @@ function getLastInformationsByType(req, res, next){
 
 //测试阶段，只监控531号自控仪
 function getStatuses(req, res, next){
-	Status.find({address: '531'}).exec(function(err, data){
+	Status.find({address: '549'}).exec(function(err, data){
 		if(err){
 			console.log('Get status error');
 			next(err);
