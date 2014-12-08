@@ -19,7 +19,8 @@ server.use(restify.bodyParser());
 server.use(
   function crossOrigin(req,res,next){
   	res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Origin", "http://www.fushuile.com");
+    //res.header("Access-Control-Allow-Origin", "http://www.fushuile.com");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     return next();
   }
