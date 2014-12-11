@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var URL = 'mongodb://localhost/innotek_tobacco';
+var URL = 'mongodb://223.4.21.219/innotek_tobacco';
 
 mongoose.connect(URL);
 var db = mongoose.connection;
