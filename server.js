@@ -58,9 +58,9 @@ function getLastInformationsByType(req, res, next){
 	})
 }
 
-//测试阶段，只监控531号自控仪
+//测试阶段，只监控5自控仪
 function getStatuses(req, res, next){
-	Status.find({address: '549'}).exec(function(err, data){
+	Status.find().limit(5).exec(function(err, data){
 		if(err){
 			console.log('Get status error');
 			next(err);
@@ -73,7 +73,24 @@ function getStatuses(req, res, next){
 }
 
 
+function getStatusByAddress(req, res, next){
+	Status.find({address: req.params.address_id}).exec(function(err, data){
+		if(err){
+			console.log('Get status error');
+			next(err);
+		}else{
+			console.log('Get status for ' + req.params.address_id + ': ' + data);
+			next();
+		}
+	});
+}
+
 server.get('/informations', getInformations);
 server.get('/informations/types/:type_id', getLastInformationsByType);
 
-server.get('/statuses', getStatuses);
+server.get('/statuses', getStatuses); 
+server.get('/statuses/:address_id', getStatusByAddress);
+
+
+
+
