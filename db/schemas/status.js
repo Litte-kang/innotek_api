@@ -11,4 +11,4 @@ var schema = new Schema({
 	updatedAt:  	{type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Status', schema, 'status_t');
+module.exports = mongoose.model('Status', schema);
