@@ -1,13 +1,13 @@
 var restify = require('restify');
 var Information = require('./db/schemas/information');
 var Status = require('./db/schemas/status');
+
 var PORT = 8080;
 
 var server = restify.createServer({
 	name: 'Innotek API server',
 	version: '0.0.1'
 });
-
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
@@ -31,6 +31,15 @@ server.listen(PORT, function(){
 });
 
 
+var io = require('socket.io')(server);
+
+io.on('connection' function(socket){
+	console.log('Socket connection');
+	socket.on('refresh store', function(data){
+		//socket.emit('update store', {store: 'update'});
+		console.log('Tell web server');
+	})
+})
 
 
 function getInformations(req, res, next){
