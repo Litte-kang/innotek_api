@@ -8,8 +8,8 @@ var server = restify.createServer({
 	name: 'Innotek API server',
 	version: '0.0.1'
 });
-
-var io = require('socket.io').listen(server);
+var socketio = require('socket.io');
+var io = socketio.listen(8089);
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
