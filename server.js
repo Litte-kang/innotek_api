@@ -31,7 +31,7 @@ server.listen(PORT, function(){
 });
 
 
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 
 io.on('connection', function(socket){
 	console.log('Socket connection');
