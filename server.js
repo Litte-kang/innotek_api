@@ -9,6 +9,8 @@ var server = restify.createServer({
 	version: '0.0.1'
 });
 
+var io = require('socket.io').listen(server);
+
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.jsonp());
@@ -31,7 +33,7 @@ server.listen(PORT, function(){
 });
 
 
-var io = require('socket.io').listen(server);
+
 
 io.on('connection', function(socket){
 	console.log('Socket connection');
