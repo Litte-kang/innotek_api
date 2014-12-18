@@ -8,6 +8,7 @@ var server = restify.createServer({
 	name: 'Innotek API server',
 	version: '0.0.1'
 });
+
 var socketio = require('socket.io');
 var io = socketio.listen(server.server);
 
@@ -38,9 +39,12 @@ server.listen(PORT, function(){
 io.on('connection', function(socket){
 	console.log('Socket connection');
 	socket.on('refresh store', function(data){
-		//socket.emit('update store', {store: 'update'});
+		// tell web server to update store from browser
+		socket.emit('update store', {store: 'update'});
 		console.log('Tell web server');
-	})
+	});
+
+	//socket.on('')
 })
 
 
