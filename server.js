@@ -33,7 +33,7 @@ server.listen(PORT, function(){
 
 var io = require('socket.io')(server);
 
-io.on('connection' function(socket){
+io.on('connection', function(socket){
 	console.log('Socket connection');
 	socket.on('refresh store', function(data){
 		//socket.emit('update store', {store: 'update'});
