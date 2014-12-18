@@ -9,7 +9,7 @@ var server = restify.createServer({
 	version: '0.0.1'
 });
 var socketio = require('socket.io');
-var io = socketio.listen(8089);
+var io = socketio.listen(server.server);
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
