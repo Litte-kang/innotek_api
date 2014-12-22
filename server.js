@@ -37,11 +37,10 @@ server.listen(PORT, function(){
 
 
 io.on('connection', function(socket){
-	console.log('Socket connection');
 	socket.on('refresh store', function(data){
 		// tell web server to update store from browser
-		socket.emit('update store', {store: 'update'});
-		console.log('Tell web server');
+		socket.broadcast.emit('update store', {store: 'update'});
+		
 	});
 
 	//socket.on('')
