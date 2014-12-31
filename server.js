@@ -72,14 +72,14 @@ function getLastInformationsByType(req, res, next){
 	})
 }
 
-//测试阶段，只监控5自控仪
+//测试阶段，只监控6自控仪
 function getStatuses(req, res, next){
-	Status.find().limit(5).exec(function(err, data){
+	Status.find().limit(6).exec(function(err, data){
 		if(err){
-			console.log('Get status error');
+			
 			next(err);
 		}else{
-			console.log('Get status ' + data);
+			
 			res.send({statuses: data});
 			next();
 		}
