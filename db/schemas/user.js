@@ -8,9 +8,9 @@ var schema = new Schema({
 	userId:           String,
 	hashedPassword:   String,
 	ip:               String,
-	lastLogin:        {type: Date, default: moment.tz('Asia/Shanghai').format()},
-	createdAt:        {type: Date, default: moment.tz('Asia/Shanghai').format()},
-	updatedAt:  	  {type: Date, default: moment.tz('Asia/Shanghai').format()}
+	lastLogin:        {type: String, default: moment().tz('Asia/Shanghai').format()},
+	createdAt:        {type: String, default: moment().tz('Asia/Shanghai').format()},
+	updatedAt:  	  {type: String, default: moment().tz('Asia/Shanghai').format()}
 });
 
 module.exports = mongoose.model('User', schema);
