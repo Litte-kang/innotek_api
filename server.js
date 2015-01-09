@@ -16,8 +16,7 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.jsonp());
 server.use(restify.bodyParser());
-//server.use(restify.CORS());
-//server.use(restify.fullResponse());
+
 
 server.use(
   function crossOrigin(req,res,next){
@@ -40,10 +39,7 @@ io.on('connection', function(socket){
 	socket.on('refresh store', function(data){
 		// tell web server to update store from browser
 		socket.broadcast.emit('update store', {store: 'update'});
-		
 	});
-
-	//socket.on('')
 })
 
 
@@ -99,11 +95,25 @@ function getStatusByAddress(req, res, next){
 	});
 }
 
+function getUsers(req, res, next){
+	User.find().exec(function(err, data){
+		if(err){
+			console.log('Get users error');
+			next(err);
+		}else{
+			res.send({users: data});
+			next();
+		}
+	});
+}
+
 server.get('/informations', getInformations);
 server.get('/informations/types/:type_id', getLastInformationsByType);
 
 server.get('/statuses', getStatuses); 
 server.get('/statuses/:address_id', getStatusByAddress);
+
+server.get('/users', getUsers);
 
 
 
