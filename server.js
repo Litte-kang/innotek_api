@@ -119,7 +119,7 @@ function login(req, res, next){
 		else{
 			console.log(req.params.userId + " : " + req.params.password);
 			res.send({user: data});
-			console.log({user.data});
+			console.log({user: data});
 			next();
 		}
 
