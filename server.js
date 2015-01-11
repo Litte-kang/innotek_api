@@ -111,11 +111,11 @@ function getUsers(req, res, next){
 function login(req, res, next){
 	var sha = crypto.createHash('sha1');
 	sha.update(req.params.password);
-	var hashedPasssword = sha.digest('hex');
-	
-	console.log(hashedPasssword);
+	var hashedPassword = sha.digest('hex');
 
-	User.findOne({userId: req.params.userId, hashedPasssword: hashedPasssword}).exec(function(err, data){
+	console.log(hashedPassword);
+
+	User.findOne({userId: req.params.userId, hashedPassword: hashedPassword}).exec(function(err, data){
 		if(err)
 			next(err);
 		else{
