@@ -117,6 +117,7 @@ function login(req, res, next){
 		if(err)
 			next(err);
 		else{
+			console.log(req.params.userId + " : " + req.params.password);
 			res.send({user: data});
 			next();
 		}
