@@ -113,7 +113,7 @@ function login(req, res, next){
 	sha.update(req.params.password);
 	var hashedPasssword = sha.digest('hex');
 
-	User.find({userId: req.params.userId, hashedPasssword: hashedPasssword}).exec(function(err, data){
+	User.findOne({userId: req.params.userId, hashedPasssword: hashedPasssword}).exec(function(err, data){
 		if(err)
 			next(err);
 		else{
