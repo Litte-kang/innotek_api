@@ -1,4 +1,5 @@
 var restify = require('restify');
+var crypto = require('crypto');
 var Information = require('./db/schemas/information');
 var Status = require('./db/schemas/status');
 var User = require('./db/schemas/user');
@@ -17,7 +18,7 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.jsonp());
 server.use(restify.bodyParser());
-
+server.use(restify.CORS());
 
 server.use(
   function crossOrigin(req,res,next){
@@ -32,8 +33,6 @@ server.use(
 server.listen(PORT, function(){
 	console.log('%s listening at %s', server.name, server.url);
 });
-
-
 
 
 io.on('connection', function(socket){
@@ -108,6 +107,23 @@ function getUsers(req, res, next){
 	});
 }
 
+
+function login(req, res, next){
+	var sha = crypto.createHash('sha1');
+	sha.update(req.params.password);
+	var hashedPasssword = sha.digest('hex');
+
+	User.find({userId: req.params.userId, hashedPasssword: hashedPasssword}).exec(function(err, data){
+		if(err)
+			next(err);
+		else{
+			res.send({user: data});
+			next();
+		}
+
+	})
+}
+
 server.get('/informations', getInformations);
 server.get('/informations/types/:type_id', getLastInformationsByType);
 
@@ -115,7 +131,7 @@ server.get('/statuses', getStatuses);
 server.get('/statuses/:address_id', getStatusByAddress);
 
 server.get('/users', getUsers);
-
+server.post('/login', login);
 
 
 
