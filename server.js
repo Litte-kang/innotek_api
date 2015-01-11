@@ -115,13 +115,11 @@ function login(req, res, next){
 
 	console.log(hashedPassword);
 
-	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword}).exec(function(err, data){
+	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword}).select('first').exec(function(err, data){
 		if(err)
 			next(err);
 		else{
-			console.log(req.params.userId + " : " + req.params.password);
 			res.send({user: data});
-			console.log({user: data});
 			next();
 		}
 
