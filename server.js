@@ -112,6 +112,8 @@ function login(req, res, next){
 	var sha = crypto.createHash('sha1');
 	sha.update(req.params.password);
 	var hashedPasssword = sha.digest('hex');
+	
+	console.log(hashedPasssword);
 
 	User.findOne({userId: req.params.userId, hashedPasssword: hashedPasssword}).exec(function(err, data){
 		if(err)
