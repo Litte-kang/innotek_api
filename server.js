@@ -111,10 +111,10 @@ function createUser(req, res, next){
 	req.accepts('application/json');
 
 	User.create({
-		userId: req.user.userId,
-		hashedPassword: generateHashedPassword('123456'),
-		firstName: req.user.firstName,
-		lastName: req.user.lastName
+				userId: req.body.userId,
+				hashedPassword: generateHashedPassword('123456'),
+				firstName: req.body.firstName,
+				lastName: req.body.lastName
 	}, function(err, user){
 		if(err){
 			console.log('error in create user');
