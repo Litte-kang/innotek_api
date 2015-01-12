@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var Information = require('./db/schemas/information');
 var Status = require('./db/schemas/status');
 var User = require('./db/schemas/user');
-var bodyParser = require('body-parser');
+
 var PORT = 8080;
 
 var server = restify.createServer({
@@ -17,8 +17,7 @@ var io = socketio.listen(server.server);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.jsonp());
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(restify.bodyParser());
 server.use(restify.CORS());
 
 // server.use(
