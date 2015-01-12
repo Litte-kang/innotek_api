@@ -109,10 +109,10 @@ function getUsers(req, res, next){
 
 function createUser(req, res, next){
 	User.create({
-		userId: req.params.userId,
+		userId: req.body.userId,
 		hashedPassword: generateHashedPassword('123456'),
-		firstName: req.params.firstName,
-		lastName: req.params.lastName
+		firstName: req.body.firstName,
+		lastName: req.body.lastName
 	}, function(err, user){
 		if(err)
 			console.log('error in create user');
