@@ -129,7 +129,8 @@ function createUser(req, res, next){
 }
 
 function deleteUser(req, res, next){
-	console.log(req.params._id);
+	console.log(req.params.user_id);
+	next();
 }
 
 function login(req, res, next){
@@ -160,7 +161,7 @@ server.get('/statuses/:address_id', getStatusByAddress);
 
 server.get('/users', getUsers);
 server.post('/users', createUser);
-server.del('/users/:_id', deleteUser);
+server.del('/users/:user_id', deleteUser);
 
 
 server.post('/login', login);
