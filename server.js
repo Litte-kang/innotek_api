@@ -116,7 +116,7 @@ function login(req, res, next){
 	console.log(hashedPassword);
 
 	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword})
-					.select('_id, firstName, lastName, userId').exec(function(err, data){
+					.select('_id firstName lastName userId').exec(function(err, data){
 		if(err)
 			next(err);
 		else{
