@@ -110,9 +110,9 @@ function getUsers(req, res, next){
 function createUser(req, res, next){
 	req.accepts('application/json');
 
-	console.log('Request object: ' + req);
-	console.log('userId: ' + req.params.userId);
-	console.log('userId id body: ' + req.body.userId);
+	console.log(req.body);
+	console.log(req.params);
+	console.log(req.query);
 
 	res.status(200);
 	next();
