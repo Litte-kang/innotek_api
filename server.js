@@ -108,12 +108,13 @@ function getUsers(req, res, next){
 }
 
 function createUser(req, res, next){
-	
+	req.accepts('application/json');
+
 	User.create({
-		userId: req.body.userId,
+		userId: req.user.userId,
 		hashedPassword: generateHashedPassword('123456'),
-		firstName: req.body.firstName,
-		lastName: req.body.lastName
+		firstName: req.user.firstName,
+		lastName: req.user.lastName
 	}, function(err, user){
 		if(err){
 			console.log('error in create user');
@@ -129,11 +130,6 @@ function createUser(req, res, next){
 }
 
 function login(req, res, next){
-	// var sha = crypto.createHash('sha1');
-	// sha.update(req.params.password);
-	// var hashedPassword = sha.digest('hex');
-
-	//console.log(hashedPassword);
 
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id firstName lastName userId')
