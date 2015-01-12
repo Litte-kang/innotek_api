@@ -107,23 +107,46 @@ function getUsers(req, res, next){
 	});
 }
 
+function createUser(req, res, next){
+	User.create({
+		userId: req.params.userId,
+		hashedPassword: hashedPassword('123456'),
+		firstName: req.params.firstName,
+		lastName: req.params.lastName
+	}, function(err, user){
+		if(err)
+			console.log('error in create user');
+		else
+			res.send({user: user});
+	});
+
+
+}
 
 function login(req, res, next){
+	// var sha = crypto.createHash('sha1');
+	// sha.update(req.params.password);
+	// var hashedPassword = sha.digest('hex');
+
+	//console.log(hashedPassword);
+
+	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
+				.select('_id firstName lastName userId')
+				.exec(function(err, data){
+							if(err)
+								next(err);
+							else{
+								res.send({user: data});
+								next();
+							}
+
+	});
+}
+
+function generateHashedPassword(password){
 	var sha = crypto.createHash('sha1');
-	sha.update(req.params.password);
-	var hashedPassword = sha.digest('hex');
-
-	console.log(hashedPassword);
-
-	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword}).select('_id firstName lastName userId').exec(function(err, data){
-		if(err)
-			next(err);
-		else{
-			res.send({user: data});
-			next();
-		}
-
-	})
+	sha.update(password);
+	return sha.digest('hex');
 }
 
 server.get('/informations', getInformations);
@@ -133,6 +156,8 @@ server.get('/statuses', getStatuses);
 server.get('/statuses/:address_id', getStatusByAddress);
 
 server.get('/users', getUsers);
+server.post('/users', createUser);
+
 server.post('/login', login);
 
 
