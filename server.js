@@ -110,21 +110,27 @@ function getUsers(req, res, next){
 function createUser(req, res, next){
 	req.accepts('application/json');
 
-	User.create({
-				userId: req.body.userId,
-				hashedPassword: generateHashedPassword('123456'),
-				firstName: req.body.firstName,
-				lastName: req.body.lastName
-	}, function(err, user){
-		if(err){
-			console.log('error in create user');
-			next(err);
-		}
-		else{
-			res.status(200);
-			next();
-		}
-	});
+	console.log('Request object: ' + req);
+	console.log('userId: ' + req.params.userId);
+	console.log('userId id body: ' + req.body.userId);
+
+	res.status(200);
+	next();
+	// User.create({
+	// 			userId: req.body.userId,
+	// 			hashedPassword: generateHashedPassword('123456'),
+	// 			firstName: req.body.firstName,
+	// 			lastName: req.body.lastName
+	// }, function(err, user){
+	// 	if(err){
+	// 		console.log('error in create user');
+	// 		next(err);
+	// 	}
+	// 	else{
+	// 		res.status(200);
+	// 		next();
+	// 	}
+	// });
 
 
 }
