@@ -96,7 +96,7 @@ function getStatusByAddress(req, res, next){
 }
 
 function getUsers(req, res, next){
-	User.find().exec(function(err, data){
+	User.find().select('_id firstName lastName userId').exec(function(err, data){
 		if(err){
 			console.log('Get users error');
 			next(err);
@@ -115,8 +115,7 @@ function login(req, res, next){
 
 	console.log(hashedPassword);
 
-	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword})
-					.select('_id firstName lastName userId').exec(function(err, data){
+	User.findOne({'userId': req.params.userId, 'hashedPassword': hashedPassword}).select('_id firstName lastName userId').exec(function(err, data){
 		if(err)
 			next(err);
 		else{
