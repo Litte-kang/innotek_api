@@ -108,7 +108,7 @@ function getUsers(req, res, next){
 }
 
 function createUser(req, res, next){
-	req.
+	
 	User.create({
 		userId: req.body.userId,
 		hashedPassword: generateHashedPassword('123456'),
