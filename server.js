@@ -115,10 +115,14 @@ function createUser(req, res, next){
 		firstName: req.body.firstName,
 		lastName: req.body.lastName
 	}, function(err, user){
-		if(err)
+		if(err){
 			console.log('error in create user');
-		else
+			next(err);
+		}
+		else{
 			res.status(200);
+			next();
+		}
 	});
 
 
