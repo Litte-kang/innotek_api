@@ -10,7 +10,7 @@ var schema = new Schema({
 	ip:               String,
 	lastLogin:        String,
 	createdAt:        {type: String, default: moment().utc('Asia/Shanghai').format()},
-	updatedAt:  	  {type: String, default: moment().utc('Asia/Shanghai').format()}
+	updatedAt:  	  String
 });
 
 module.exports = mongoose.model('User', schema);

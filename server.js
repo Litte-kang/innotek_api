@@ -108,14 +108,7 @@ function getUsers(req, res, next){
 }
 
 function createUser(req, res, next){
-	req.accepts('application/json');
-
-	// console.log(req.body);
-	// console.log(req.params);
-	// console.log(req.query);
-
-	// res.status(200);
-	// next();
+	//req.accepts('application/json');
 	User.create({
 				userId: req.body.user.userId,
 				hashedPassword: generateHashedPassword('123456'),
@@ -135,8 +128,11 @@ function createUser(req, res, next){
 
 }
 
-function login(req, res, next){
+function deleteUser(req, res, next){
+	console.log(req.params._id);
+}
 
+function login(req, res, next){
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id firstName lastName userId')
 				.exec(function(err, data){
@@ -164,6 +160,8 @@ server.get('/statuses/:address_id', getStatusByAddress);
 
 server.get('/users', getUsers);
 server.post('/users', createUser);
+server.del('/users/:_id', deleteUser);
+
 
 server.post('/login', login);
 
