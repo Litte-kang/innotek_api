@@ -117,7 +117,7 @@ function createUser(req, res, next){
 		if(err)
 			console.log('error in create user');
 		else
-			res.send({user: user});
+			res.status(200);
 	});
 
 
