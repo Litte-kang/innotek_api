@@ -131,9 +131,10 @@ function createUser(req, res, next){
 function deleteUser(req, res, next){
 	console.log(req.params.user_id);
 	User.remove({_id: req.params.user_id}, function(err){
-		if(err)
+		if(err){
 			console.log(err);
 			next(err);
+		}
 		else{
 			res.status(200);
 			next();
