@@ -150,6 +150,7 @@ function login(req, res, next){
 								next(err);
 							else{
 								console.log('Login data: ' + data);
+								res.status(200);
 								res.send({user: data});
 								next();
 							}
