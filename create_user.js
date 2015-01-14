@@ -2,7 +2,7 @@ var crypto = require('crypto');
 var User = require('./db/schemas/user');
 
 User.create({
-	userId: 'admin',
+	userId: '999',
 	hashedPassword: generateHashedPassword('123456'),
 	firstName: 'Liu',
 	lastName: 'David'
