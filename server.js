@@ -146,8 +146,10 @@ function login(req, res, next){
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id firstName lastName userId')
 				.exec(function(err, data){
-							if(err)
+							if(err){
+								console.log(err);
 								next(err);
+							}
 							else{
 								console.log('Login data: ' + data);
 								res.status(200);
