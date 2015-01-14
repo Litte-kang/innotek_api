@@ -149,6 +149,7 @@ function login(req, res, next){
 							if(err)
 								next(err);
 							else{
+								console.log('Login data: ' + data);
 								res.send({user: data});
 								next();
 							}
