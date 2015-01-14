@@ -143,6 +143,8 @@ function deleteUser(req, res, next){
 }
 
 function login(req, res, next){
+	console.log('Get a login request');
+
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id firstName lastName userId')
 				.exec(function(err, data){
@@ -152,8 +154,7 @@ function login(req, res, next){
 							}
 							else{
 								console.log('Login data: ' + data);
-								res.status(200);
-								res.send({user: data});
+								res.send(200,{user: data});
 								next();
 							}
 
