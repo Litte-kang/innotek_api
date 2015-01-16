@@ -190,8 +190,11 @@ server.get('/stations', function(req, res, next){
 server.post('/stations', function(req, res, next){
 
 	Station.create({
+		
 				name: req.body.station.name,
-				loc: {type: 'Piont', coordinates: [parseFloat(req.body.station.location[0]), parseFloat(req.body.station.location[1])]}
+				longitude: req.body.station.longitude,
+				latitude: req.body.station.latitude
+
 	}, function(err, station){
 		if(err){
 			console.log('error in create station' + err);

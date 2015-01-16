@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
 	name:   	  String,
-	loc:          Schema.Types.Mixed,
+	longitude:    Number,
+	latitude:     Number,
 	createdAt:    {type: String, default: moment().utc('Asia/Shanghai').format()},
 	updatedAt:    String,
 	rooms :       [Schema.Types.ObjectId]
