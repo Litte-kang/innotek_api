@@ -190,7 +190,7 @@ server.get('/stations', function(req, res, next){
 server.post('/stations', function(req, res, next){
 	Station.create({
 				name: req.body.station.name,
-				loc: {type: 'Piont', coordinates: [req.body.station.longitude, req.body.station.latitude]}
+				loc: {type: 'Piont', coordinates: req,body.station.location}
 	}, function(err, station){
 		if(err){
 			console.log('error in create user');
