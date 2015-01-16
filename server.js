@@ -190,7 +190,7 @@ server.get('/stations', function(req, res, next){
 server.post('/stations', function(req, res, next){
 
 	Station.create({
-		
+
 				name: req.body.station.name,
 				longitude: req.body.station.longitude,
 				latitude: req.body.station.latitude
@@ -206,6 +206,20 @@ server.post('/stations', function(req, res, next){
 		}
 	});
 });
+
+server.del('/stations/:station_id', function(req, res, next){
+	console.log(req.params.station_id);
+	Station.remove({_id: req.params.station_id}, function(err){
+		if(err){
+			console.log(err);
+			next(err);
+		}
+		else{
+			res.status(200);
+			next();
+		}
+	});
+})
 
 
 
