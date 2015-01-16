@@ -64,6 +64,7 @@ function getLastInformationsByType(req, res, next){
 
 //测试阶段，只监控6自控仪
 function getRooms(req, res, next){
+	console.log('Get Rooms');
 	Room.find().limit(12).exec(function(err, data){
 		if(err){
 			next(err);
