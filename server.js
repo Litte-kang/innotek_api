@@ -1,8 +1,12 @@
 var restify = require('restify');
 var crypto = require('crypto');
+
 var Information = require('./db/schemas/information');
 var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
+var Station = require('./db/schemas/station');
+
+
 
 var PORT = 8080;
 
@@ -169,6 +173,35 @@ server.del('/users/:user_id', deleteUser);
 
 
 server.post('/login', login);
+
+//Station manage
+server.get('/stations', function(req, res, next){
+	Station.find().exec(function(err, data){
+		if(err)
+			next(err);
+		else{
+			res.send(200, {stations: data});
+			next();
+		}
+
+	})
+});
+
+server.post('/stations', function(req, res, next){
+	Station.create({
+				name: req.body.station.name,
+				loc: {type: 'Piont', coordinates: [req.body.station.longitude, req.body.station.latitude]}
+	}, function(err, station){
+		if(err){
+			console.log('error in create user');
+			next(err);
+		}
+		else{
+			res.status(200);
+			next();
+		}
+	});
+});
 
 
 

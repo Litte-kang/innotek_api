@@ -5,7 +5,8 @@ User.create({
 	userId: '999',
 	hashedPassword: generateHashedPassword('123456'),
 	firstName: 'Liu',
-	lastName: 'David'
+	lastName: 'David',
+	isAdmin: true
 }, function(err, user){
 	if(err)
 		console.log(err);

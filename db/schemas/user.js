@@ -8,6 +8,7 @@ var schema = new Schema({
 	userId:           String,
 	hashedPassword:   String,
 	ip:               String,
+	isAdmin:          {type: Boolean, default: false},
 	lastLogin:        String,
 	createdAt:        {type: String, default: moment().utc('Asia/Shanghai').format()},
 	updatedAt:  	  String
