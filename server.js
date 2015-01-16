@@ -193,7 +193,7 @@ server.post('/stations', function(req, res, next){
 				loc: {type: 'Piont', coordinates: req.body.station.location}
 	}, function(err, station){
 		if(err){
-			console.log('error in create user');
+			console.log('error in create station' + err);
 			next(err);
 		}
 		else{
