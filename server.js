@@ -63,14 +63,12 @@ function getLastInformationsByType(req, res, next){
 }
 
 //测试阶段，只监控6自控仪
-function getStatuses(req, res, next){
-	Status.find().limit(6).exec(function(err, data){
+function getRooms(req, res, next){
+	Room.find().limit(12).exec(function(err, data){
 		if(err){
-			
 			next(err);
 		}else{
-			
-			res.send({statuses: data});
+			res.send({rooms: data});
 			next();
 		}
 	});
@@ -164,7 +162,7 @@ function generateHashedPassword(password){
 server.get('/informations', getInformations);
 server.get('/informations/types/:type_id', getLastInformationsByType);
 
-server.get('/statuses', getStatuses); 
+
 server.get('/statuses/:address_id', getStatusByAddress);
 
 server.get('/users', getUsers);
@@ -219,7 +217,9 @@ server.del('/stations/:station_id', function(req, res, next){
 			next();
 		}
 	});
-})
+});
+
+server.get('/rooms', getRooms); 
 
 
 
