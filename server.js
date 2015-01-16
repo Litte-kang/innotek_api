@@ -69,6 +69,7 @@ function getRooms(req, res, next){
 		if(err){
 			next(err);
 		}else{
+			console.log(data);
 			res.send({rooms: data});
 			next();
 		}
