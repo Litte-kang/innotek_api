@@ -1,13 +1,15 @@
 var mongoose = require('../config');
+var moment = require('moment-timezone');
 
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-
-	name: 		String,
-	code:       String, 
-	ac: 		[Schema.Types.ObjectId], 
-	createdAt:  {type: Date, default: Date.now}
+     infoType:     {type: Number, default: 0}
+   , address:       String
+   , ip:            String
+   , status:       [Number]
+   , updatedAt:    String
 });
 
-module.exports = mongoose.model('room', schema);
+module.exports = mongoose.model('Room', schema);
+

@@ -1,7 +1,7 @@
 var restify = require('restify');
 var crypto = require('crypto');
 var Information = require('./db/schemas/information');
-var Status = require('./db/schemas/status');
+var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
 
 var PORT = 8080;
@@ -20,16 +20,6 @@ server.use(restify.jsonp());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 
-// server.use(
-//   function crossOrigin(req,res,next){
-//   	res.header("Access-Control-Allow-Credentials", true);
-//     res.header("Access-Control-Allow-Origin", "http://www.fushuile.com");
-//     //res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     return next();
-//   }
-// );
-
 server.listen(PORT, function(){
 	console.log('%s listening at %s', server.name, server.url);
 });
@@ -40,7 +30,7 @@ io.on('connection', function(socket){
 		// tell web server to update store from browser
 		socket.broadcast.emit('update store', {store: 'update'});
 	});
-})
+});
 
 
 function getInformations(req, res, next){
