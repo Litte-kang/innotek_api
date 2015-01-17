@@ -5,8 +5,9 @@ var Information = require('./db/schemas/information');
 var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
 var Station = require('./db/schemas/station');
+var Com = require('./db/schemas/command');
 
-
+var client = require('./client');
 
 var PORT = 8080;
 
@@ -219,6 +220,34 @@ server.del('/stations/:station_id', function(req, res, next){
 			next();
 		}
 	});
+});
+
+
+//Save command and sent to middleware
+server.post('/commands', function(req, res, next){
+	Command.create({
+		address: req.body.command.address,
+		infoType: req.body.command.infoType,
+		status: req.body.command.status,
+		ip:   req.body.command.ip
+	}, function(err, command){
+		if(err){
+			console.log('Send command error: ' + err);
+			next(err);
+		}else{
+			console.log('New Command is: ' + command);
+			var info;
+			switch(infoType){
+				case 4:
+				info = '{"type":4,"address":"0000000001","data":[100040,"301",0,0,0]}';
+				break;
+				case 12:
+				info = '{"type":12,"address":"0000000001","data":[0,0,{"DryBulbCurve":[11,22,33,44,55,66,77,88,99,0]},{"WetBulbCurve":[32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5]},{"TimeCurve":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]}]}';
+			}
+			SendCmdInfo(8125, command.ip , info);
+			next();
+		}
+	})
 });
 
 server.get('/rooms', getRooms); 
