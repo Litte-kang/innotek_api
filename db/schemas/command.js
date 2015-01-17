@@ -6,9 +6,9 @@ var schema = new Schema({
 
 	infoType: 		{type: Number, default: 0},
 	address:   		String,
-	information: 	[Schema.Types.Mixed],
-	ip:              String,
-	updatedAt:  	{type: Date, default: Date.now}
+	command: 	    [Schema.Types.Mixed],
+	ip:             String,
+	createdAt:  	{type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Status', schema);
+module.exports = mongoose.model('Command', schema);
