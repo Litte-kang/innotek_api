@@ -5,7 +5,7 @@ var Information = require('./db/schemas/information');
 var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
 var Station = require('./db/schemas/station');
-var Com = require('./db/schemas/command');
+var Command = require('./db/schemas/command');
 
 var client = require('./client');
 
