@@ -238,7 +238,7 @@ server.post('/commands', function(req, res, next){
 			console.log('New Command is: ' + command);
 			var info = '{"type":12,"address":"0000000001","data":[0,0,{"DryBulbCurve":[11,22,33,44,55,66,77,88,99,0]},{"WetBulbCurve":[32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5]},{"TimeCurve":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]}]}';
 		}
-			SendCmdInfo(8125, command.ip , info);
+			client.SendCmdInfo(8125, command.ip , info);
 			next();
 	})
 });
