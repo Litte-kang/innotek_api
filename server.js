@@ -227,7 +227,7 @@ server.del('/stations/:station_id', function(req, res, next){
 server.post('/commands', function(req, res, next){
 	Command.create({
 		address: req.body.address,
-		infoType: req.body.infoType,
+		infoType: 12,
 		//status: req.body.command.status,
 		ip:   req.body.ip
 	}, function(err, command){
