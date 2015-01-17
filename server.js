@@ -226,10 +226,10 @@ server.del('/stations/:station_id', function(req, res, next){
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
 	Command.create({
-		address: req.body.command.address,
-		infoType: req.body.command.infoType,
-		status: req.body.command.status,
-		ip:   req.body.command.ip
+		address: req.body.address,
+		infoType: req.body.infoType,
+		//status: req.body.command.status,
+		ip:   req.body.ip
 	}, function(err, command){
 		if(err){
 			console.log('Send command error: ' + err);
