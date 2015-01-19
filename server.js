@@ -91,7 +91,7 @@ function getStatusByAddress(req, res, next){
 }
 
 function getUsers(req, res, next){
-	User.find().select('_id firstName lastName userId').exec(function(err, data){
+	User.find().select('_id firstName lastName userId stations').exec(function(err, data){
 		if(err){
 			console.log('Get users error');
 			next(err);
