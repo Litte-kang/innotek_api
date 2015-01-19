@@ -2,10 +2,11 @@ var crypto = require('crypto');
 var User = require('./db/schemas/user');
 
 User.create({
-	userId: '1001',
+	userId: '999',
 	hashedPassword: generateHashedPassword('123456'),
-	firstName: 'Jay',
-	lastName: 'King'
+	firstName: 'Liu',
+	lastName: 'David',
+	isAdmin: true
 }, function(err, user){
 	if(err)
 		console.log(err);

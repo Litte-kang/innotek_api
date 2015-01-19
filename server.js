@@ -202,11 +202,10 @@ server.get('/stations', function(req, res, next){
 server.post('/stations', function(req, res, next){
 
 	Station.create({
-
 				name: req.body.station.name,
+				stationCode: req.body.station.stationCode,
 				longitude: req.body.station.longitude,
 				latitude: req.body.station.latitude
-
 	}, function(err, station){
 		if(err){
 			console.log('error in create station' + err);
