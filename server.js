@@ -171,6 +171,17 @@ server.get('/statuses/:address_id', getStatusByAddress);
 server.get('/users', getUsers);
 server.post('/users', createUser);
 server.del('/users/:user_id', deleteUser);
+server.get('/users/:user_id', function(req, res, next){
+	User.find({userId: req.params.user_id}).exec(function(err, user){
+		if(err)
+			next(err);
+		else{
+			res.send(200, {user: user});
+			next();
+		}
+
+	});
+});
 
 
 server.post('/login', login);

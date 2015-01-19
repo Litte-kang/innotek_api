@@ -11,7 +11,8 @@ var schema = new Schema({
 	isAdmin:          {type: Boolean, default: false},
 	lastLogin:        String,
 	createdAt:        {type: String, default: moment().utc('Asia/Shanghai').format()},
-	updatedAt:  	  String
+	updatedAt:  	  String,
+	stations:         [Schema.Types.Mixed]
 });
 
 module.exports = mongoose.model('User', schema);
