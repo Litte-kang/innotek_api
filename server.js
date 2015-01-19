@@ -172,7 +172,7 @@ server.get('/users', getUsers);
 server.post('/users', createUser);
 server.del('/users/:user_id', deleteUser);
 server.get('/users/:user_id', function(req, res, next){
-	User.find({userId: req.params.user_id}).exec(function(err, user){
+	User.find({userId: req.params.user_id}).select('_id userId firstName lastName stations').exec(function(err, user){
 		if(err)
 			next(err);
 		else{
