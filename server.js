@@ -149,6 +149,7 @@ function login(req, res, next){
 							}
 							else{
 								console.log('Login data: ' + data);
+								res.set('content-type', 'application/json; charset=utf-8');
 								res.send(200,{user: data});
 								next();
 							}
