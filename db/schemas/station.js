@@ -9,7 +9,7 @@ var schema = new Schema({
 	latitude:     Number,
 	createdAt:    {type: String, default: moment().utc('Asia/Shanghai').format()},
 	updatedAt:    String,
-	rooms :       [Schema.Types.Mixed]
+	rooms :       [Schema.Types.ObjectId]
 
 });
 

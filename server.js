@@ -63,19 +63,7 @@ function getLastInformationsByType(req, res, next){
 	})
 }
 
-//测试阶段，只监控6自控仪
-function getRooms(req, res, next){
-	console.log('Get Rooms');
-	Room.find().limit(12).exec(function(err, data){
-		if(err){
-			next(err);
-		}else{
-			console.log(data);
-			res.send({rooms: data});
-			next();
-		}
-	});
-}
+
 
 
 function getStatusByAddress(req, res, next){
@@ -256,7 +244,24 @@ server.post('/commands', function(req, res, next){
 	})
 });
 
-server.get('/rooms', getRooms); 
+server.get('/stations/:station_id/rooms', function(req, res, next){
+	Station.findOne({_id: req.params.station_id}).exec(function(err, station){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			Room.find().where('_id').in(station.rooms).exec(function(err, rooms){
+				if(err){
+					res.send(500);
+					next(err);
+				}else{
+					res.send(200, {rooms: rooms});
+					next()
+				}
+			});
+		}
+	})
+}); 
 
 
 
