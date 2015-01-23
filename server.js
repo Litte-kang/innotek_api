@@ -236,8 +236,9 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
+	var address = req.params.address;
 	Command.create({
-		address: req.params.address,
+		address: address,
 		infoType: 12,
 		//status: req.body.command.status,
 		ip: req.params.ip
@@ -247,7 +248,7 @@ server.post('/commands', function(req, res, next){
 			next(err);
 		}else{
 			console.log('New Command is: ' + command);
-			var info = '{"type":12,"address":"0000000001","data":[0,0,{"DryBulbCurve":[11,22,33,44,55,66,77,88,99,0]},{"WetBulbCurve":[32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5]},{"TimeCurve":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]}]}';
+			var info = '{"type":12,"address": "'+ address +'","data":[0,0,{"DryBulbCurve":[11,22,33,44,55,66,77,88,99,0]},{"WetBulbCurve":[32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5]},{"TimeCurve":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]}]}';
 		}
 		console.log(command.ip);
 		client.SendCmdInfo(8125, command.ip , info);
