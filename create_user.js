@@ -12,7 +12,7 @@ User.create({
 			name: '郴州烟站'
 		},
 		{
-			_id: '54bd18104e38d8d7048aea8c',
+			_id: '54c290999c8b7c9e04abd65d',
 			name: '茶陵烟站'
 		}
 	]

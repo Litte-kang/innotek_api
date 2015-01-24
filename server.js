@@ -263,5 +263,17 @@ server.get('/stations/:station_id/rooms', function(req, res, next){
 	})
 }); 
 
+server.get('/rooms', function(req, res, next){
+	Room.find().exec(function(err, rooms){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.send(200, {rooms: rooms});
+			next();
+		}
+	})
+})
+
 
 
