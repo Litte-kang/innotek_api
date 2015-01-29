@@ -231,12 +231,17 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
-	console.log("dry is " + typeof(dry[0])  );
+	var drys = [];
+	dry.split(',').forEach(test);
 
-
+	console.log(drys);
 	next();
 
 });
+
+function test(element, index, array){
+	console.log(parseFloat(element));
+}
 
 
 function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
