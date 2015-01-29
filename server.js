@@ -231,7 +231,7 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
-	console.log("dry is " + dry  )
+	console.log("dry is " + typeof(dry)  );
 
 
 	next();
