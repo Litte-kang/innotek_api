@@ -224,25 +224,50 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
+	var midAddress  = req.params.midAddress;
 	var address = req.params.address;
-	Command.create({
-		address: address,
-		infoType: 12,
-		//status: req.body.command.status,
-		ip: req.params.ip
-	}, function(err, command){
-		if(err){
-			console.log('Send command error: ' + err);
-			next(err);
-		}else{
-			console.log('New Command is: ' + command);
-			var info = '{"type":12,"address": "'+ address +'","data":[0,0,{"DryBulbCurve":[11,22,33,44,55,66,77,88,99,0]},{"WetBulbCurve":[32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5,32.5]},{"TimeCurve":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]}]}';
-		}
-		console.log(command.ip);
-		client.SendCmdInfo(8125, command.ip , info);
-		next();
-	})
+	var drys = req.params.dry;
+	var wets = req.params.wet;
+	console.log(drys);
+	next();
+
 });
+
+
+function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
+{
+	var json = 
+	{
+		type:12,
+		address:"0",
+		data:[0]
+	};
+	var dry_obj = {DryBulbCurve:[0]};
+	var wet_obj = {WetBulbCurve:[0]};
+	var time_obj = {TimeCurve:[0]};
+
+	json.address = MidwareID;
+	json.data[0] = ((TargetID >> 8) & 0x00ff);
+	json.data[1] = (TargetID & 0x00ff);
+
+	dry_obj.DryBulbCurve = DryBulbCurveValue;
+	wet_obj.WetBulbCurve = WetBulbCurveValue;
+	time_obj.TimeCurve = TimeCurveValue;
+
+	json.data[2] = dry_obj;
+	json.data[3] = wet_obj;
+	json.data[4] = time_obj;
+	
+	return json;
+}
+
+
+
+
+
+
+
+
 
 server.get('/stations/:station_id/rooms', function(req, res, next){
 	Station.findOne({_id: req.params.station_id}).exec(function(err, station){
