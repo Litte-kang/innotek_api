@@ -226,9 +226,14 @@ server.del('/stations/:station_id', function(req, res, next){
 server.post('/commands', function(req, res, next){
 	var midAddress  = req.params.midAddress;
 	var address = req.params.address;
-	var drys = req.params.dry;
-	var wets = req.params.wet;
-	console.log(drys);
+	var dry = req.params.dry;
+	var wet = req.params.wet;
+	var time = req.params.sTime;
+	var ip = req.params.ip;
+
+	console.log("dry is " + dry  )
+
+
 	next();
 
 });
