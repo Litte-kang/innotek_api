@@ -231,15 +231,27 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
-
-
-
 	var drys = [];
 	dry.split(',').forEach(function(element, index, array){
 		drys.push(parseFloat(element));
 	});
 
-	console.log(drys);
+	var wets = [];
+	wet.split(',').forEach(function(element, index, array){
+		wets.push(parseFloat(element));
+	});
+
+	var times = [];
+	time.split(',').forEach(function(element, index, array){
+		times.push(parseFloat(element));
+	});
+
+	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	console.log(json);
+	//client.SendCmdInfo(8125, "192.168.1.99", json);
+
+	res.send(200,"ok");
+
 	next();
 
 });
