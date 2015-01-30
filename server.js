@@ -247,6 +247,7 @@ server.post('/commands', function(req, res, next){
 	});
 
 	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	console.log(ip);
 	console.log(json);
 	client.SendCmdInfo(8125, ip, json);
 
