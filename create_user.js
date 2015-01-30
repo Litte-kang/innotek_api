@@ -1,27 +1,53 @@
 var crypto = require('crypto');
 var User = require('./db/schemas/user');
+var Station  = require('./db/schemas/station');
 
-User.create({
-	userId: '160386',
-	hashedPassword: generateHashedPassword('123456'),
-	firstName: 'Jay',
-	lastName: 'King',
-	stations: [
-		{
-			_id: '54bd18104e38d8d7048aea8a',
-			name: '郴州烟站'
-		},
-		{
-			_id: '54c290999c8b7c9e04abd65d',
-			name: '茶陵烟站'
+Station.find().select("_id name").exec(function(err, stations){
+	
+	if(!err){
+		
+		var array = [];
+		for(var i=0; i<stations.length; i++){
+			array.push({
+				_id: stations[i]._id,
+				name: stations[i].name
+			});
 		}
-	]
-}, function(err, user){
-	if(err)
-		console.log(err);
-	else
-		console.log(user);
+
+		console.log(array);
+				User.create({
+					userId: '160386',
+					hashedPassword: generateHashedPassword('123456'),
+					firstName: 'Jay',
+					lastName: 'King',
+					stations: array
+		}, function(err, user){
+				if(err)
+					console.log(err);
+				else
+					console.log(user);
+		});
+	}else{
+		console.log('Create user err ' + err);
+	}
+	
+	// 	User.create({
+	// 				userId: '160386',
+	// 				hashedPassword: generateHashedPassword('123456'),
+	// 				firstName: 'Jay',
+	// 				lastName: 'King',
+	// 				stations: array
+	// 	}, function(err, user){
+	// 			if(err)
+	// 				console.log(err);
+	// 			else
+	// 				console.log(user);
+	// 	});
+	// }else{
+	// 	console.log('Create user err ' + err);
+	// }
 });
+
 
 
 function generateHashedPassword(password){
