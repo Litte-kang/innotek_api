@@ -231,6 +231,23 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
+	// Address.findOne({address: midAddress}).select('ip updatedAt').exec(function(err, address){
+	// 	if(!err){
+	// 		var address_updatedAt = address.updatedAt;
+	// 		var address_ip = address.ip;
+
+	// 		Room.findOne({address: address, midAddress: midAddress}).select('ip, updatedAt').exec(function(err, room){
+	// 			if(!err){
+	// 				console.log（'updatedAt of address' + address_updatedAt);
+	// 				console.log('KKKKKKK : ' + (room.updatedAt > address_updatedAt );
+	// 			}else
+	// 				console.log('Find Room error ' + err);
+	// 		});
+	// 	}else
+	// 		console.log('Find Address error ' + err);
+	// });
+
+
 	var drys = [];
 	dry.split(',').forEach(function(element, index, array){
 		drys.push(parseFloat(element));
@@ -249,6 +266,7 @@ server.post('/commands', function(req, res, next){
 	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
 	console.log(ip);
 	console.log(json);
+	
 	client.SendCmdInfo(8125, ip, json);
 
 	res.send(200,"ok");

@@ -6,10 +6,6 @@ First used			: /
 */
 var net = require('net');
 
-var counter = 0;
-
-var tmp = 0;
-
 /***********************************************************************
 **Function Name	: SendCmdInfo
 **Description	: send a cmd information to middleware.
@@ -20,57 +16,40 @@ var tmp = 0;
 ***********************************************************************/
 function SendCmdInfo(port, MidwareIP, CmdInfo)
 {
-	var client = new net.Socket();
+	var client_socket = new net.Socket();
 
-	client.connect(port, MidwareIP, function(){
+	client_socket.connect(port, MidwareIP, function(){
 		
 		console.log("CONNECTED:" + MidwareIP + ":" + port);
 
-		client.write(CmdInfo);
-	});
-
-	client.on('data', function(data){
-	
-		try
-		{
-			var json = JSON.parse(data);
+		client_socket.write(CmdInfo, function(){
 			
-			console.log(JSON.stringify(json));
-			
-			switch (json.type)
+			try
 			{
-				case 5:
-					console.log("middleware finish downloading fw!");
-					break
-				case 13:
-					tmp = 1;
-					counter++;		
-					console.log("connect", counter, "th");					
-					client.destroy();
-					break;
-				case 100:
-					tmp = 2;
-					client.destroy();
-					break;
-				default:
-					client.destroy();
-					break;			
-			}		
-		}
-		catch (err)
-		{
-			console.log("SendCmdInfo.js:json parse error");
-			client.destroy();			
-		}	
+				var cmd_info = JSON.parse(CmdInfo);
+
+				console.log("send " + cmd_info.type + " cmd info ok!");
+			}
+			catch (err)
+			{
+				console.log("EEROR: json parse error!");
+			}
+			
+			client_socket.destroy();
+		});
 	});
 
-	client.on('close', function(){
+	client_socket.on('error', function(err){
+		
+		console.log("ERROR:",err.errno);
+
+		client_socket.destroy();
+	});
+
+	client_socket.on('close', function(){
 	
-		console.log("client close!",tmp);
+		console.log("client close!");
 	});
 }
 
 exports.SendCmdInfo = SendCmdInfo;
-
-
-

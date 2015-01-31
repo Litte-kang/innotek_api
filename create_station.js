@@ -9,15 +9,15 @@ var stations = [
 
 for(var i =0; i < stations.length ; i++){
 	Station.create({
-	name: stations[i].name,
-	stationCode: stations[i].stationCode,
-	longitude: stations[i].longitude,
-	latitude: stations[i].latitude,
-	}, function(err, user){
+		name: stations[i].name,
+		stationCode: stations[i].stationCode,
+		longitude: stations[i].longitude,
+		latitude: stations[i].latitude,
+	}, function(err, station){
 		if(err)
 			console.log(err);
 		else
-			console.log(user);
+			console.log(station);
 	});
 }
 
