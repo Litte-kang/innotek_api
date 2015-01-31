@@ -263,11 +263,11 @@ server.post('/commands', function(req, res, next){
 		times.push(parseFloat(element));
 	});
 
-	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
-	console.log(ip);
-	console.log(JSON.stringify(json));
-
-	client.SendCmdInfo(8125, ip, JSON.stringify(json));
+	// var json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	// console.log(ip);
+	// console.log(JSON.stringify(json));
+	var string = '{"type":12,"address":"0000000002","data":[0,100,{"DryBulbCurve":[30,31,32,33,34,35,36,37,38,39]},{"WetBulbCurve":[40.5,41.5,42,43,44,45,46,47,48,49]},{"TimeCurve":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]}]}';
+	client.SendCmdInfo(8125, '113.218.17.138', string);
 
 	res.send(200,"ok");
 
