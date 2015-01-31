@@ -267,7 +267,7 @@ server.post('/commands', function(req, res, next){
 	console.log(ip);
 	console.log(JSON.stringify(json));
 
-	client.SendCmdInfo(8125, ip, json);
+	client.SendCmdInfo(8125, ip, JSON.stringify(json));
 
 	res.send(200,"ok");
 

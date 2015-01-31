@@ -11,7 +11,7 @@ var net = require('net');
 **Description	: send a cmd information to middleware.
 **Parameters	: port - in.
 				: MidwareIP - in.
-				: CmdInfo - in.
+				: CmdInfo - String.
 **Return		: none.
 ***********************************************************************/
 function SendCmdInfo(port, MidwareIP, CmdInfo)
@@ -23,18 +23,6 @@ function SendCmdInfo(port, MidwareIP, CmdInfo)
 		console.log("CONNECTED:" + MidwareIP + ":" + port);
 
 		client_socket.write(CmdInfo, function(){
-			
-			try
-			{
-				var cmd_info = JSON.parse(CmdInfo);
-
-				console.log("send " + cmd_info.type + " cmd info ok!");
-			}
-			catch (err)
-			{
-				console.log("EEROR: json parse error!");
-			}
-			
 			client_socket.destroy();
 		});
 	});
@@ -53,3 +41,4 @@ function SendCmdInfo(port, MidwareIP, CmdInfo)
 }
 
 exports.SendCmdInfo = SendCmdInfo;
+
