@@ -23,6 +23,7 @@ function SendCmdInfo(port, MidwareIP, CmdInfo)
 		console.log("CONNECTED:" + MidwareIP + ":" + port);
 
 		client_socket.write(CmdInfo, function(){
+			console.log('Send finished success');
 			client_socket.destroy();
 		});
 	});
