@@ -231,43 +231,28 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
-	Address.findOne({address: midAddress}).select('ip updatedAt').exec(function(err, address){
-		if(!err){
-			var address_updatedAt = address.updatedAt;
-			var address_ip = address.ip;
 
-			Room.findOne({address: address, midAddress: midAddress}).select('ip, updatedAt').exec(function(err, room){
-				if(!err){
-					console.log('updatedAt of address' + address_updatedAt);
-					console.log('KKKKKKK : ' + (room.updatedAt > address_updatedAt ));
-				}else
-					console.log('Find Room error ' + err);
-			});
-		}else
-			console.log('Find Address error ' + err);
+
+	var drys = [];
+	dry.split(',').forEach(function(element, index, array){
+		drys.push(parseFloat(element));
 	});
 
+	var wets = [];
+	wet.split(',').forEach(function(element, index, array){
+		wets.push(parseFloat(element));
+	});
 
-	// var drys = [];
-	// dry.split(',').forEach(function(element, index, array){
-	// 	drys.push(parseFloat(element));
-	// });
+	var times = [];
+	time.split(',').forEach(function(element, index, array){
+		times.push(parseFloat(element));
+	});
 
-	// var wets = [];
-	// wet.split(',').forEach(function(element, index, array){
-	// 	wets.push(parseFloat(element));
-	// });
-
-	// var times = [];
-	// time.split(',').forEach(function(element, index, array){
-	// 	times.push(parseFloat(element));
-	// });
-
-	// var json = MakeConfigCurve(midAddress, address, drys, wets, times);
-	// console.log(ip);
-	// console.log(JSON.stringify(json));
-//	var string = '{"type":12,"address":"0000000002","data":[0,100,{"DryBulbCurve":[30,31,32,33,34,35,36,37,38,39]},{"WetBulbCurve":[40.5,41.5,42,43,44,45,46,47,48,49]},{"TimeCurve":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]}]}';
-//	client.SendCmdInfo(8125, '113.218.17.138', string);
+	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	
+	//console.log(JSON.stringify(json));
+	//var string = '{"type":12,"address":"0000000002","data":[0,100,{"DryBulbCurve":[30,31,32,33,34,35,36,37,38,39]},{"WetBulbCurve":[40.5,41.5,42,43,44,45,46,47,48,49]},{"TimeCurve":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]}]}';
+	client.SendCmdInfo(8125, ip, JSON.stringify(json));
 
 	res.send(200,"ok");
 
