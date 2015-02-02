@@ -238,7 +238,7 @@ server.post('/commands', function(req, res, next){
 
 			Room.findOne({address: address, midAddress: midAddress}).select('ip, updatedAt').exec(function(err, room){
 				if(!err){
-					console.log（'updatedAt of address' + address_updatedAt);
+					console.log('updatedAt of address' + address_updatedAt);
 					console.log('KKKKKKK : ' + (room.updatedAt > address_updatedAt );
 				}else
 					console.log('Find Room error ' + err);
