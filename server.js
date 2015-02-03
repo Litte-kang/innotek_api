@@ -233,7 +233,7 @@ server.post('/commands', function(req, res, next){
 	var times = sTime.concat(dTime);
 	var ip = req.params.ip;
 
-
+	console.log(sTime);
 
 	var drys = [];
 	dry.split(',').forEach(function(element, index, array){
