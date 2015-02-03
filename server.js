@@ -228,7 +228,9 @@ server.post('/commands', function(req, res, next){
 	var address = req.params.address;
 	var dry = req.params.dry;
 	var wet = req.params.wet;
-	var time = req.params.sTime;
+	var sTime = req.params.sTime; 
+	var dTime = req.params.dTime;
+	var times = sTime.concat(dTime);
 	var ip = req.params.ip;
 
 
