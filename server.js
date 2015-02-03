@@ -228,7 +228,7 @@ server.post('/commands', function(req, res, next){
 	var address = req.params.address;
 	var dry = req.params.dry;
 	var wet = req.params.wet;
-	var times = req.params.sTime;
+	var time = req.params.sTime;
 	var ip = req.params.ip;
 
 	//console.log(times);
