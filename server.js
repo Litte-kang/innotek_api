@@ -237,18 +237,21 @@ server.post('/commands', function(req, res, next){
 	dry.split(',').forEach(function(element, index, array){
 		drys.push(parseFloat(element));
 	});
+	drys.pop();
 	console.log(drys);
 
 	var wets = [];
 	wet.split(',').forEach(function(element, index, array){
 		wets.push(parseFloat(element));
 	});
+	wets.pop()
 	console.log(wets);
 
 	var times = [];
 	time.split(',').forEach(function(element, index, array){
 		times.push(parseFloat(element));
 	});
+	times.pop();
     console.log(times);
 
 	var json = MakeConfigCurve(midAddress, address, drys, wets, times);
