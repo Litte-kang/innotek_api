@@ -225,27 +225,18 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
-	console.log('Send command');
-	Address.findOne({address: req.params.address}).exec(function(err, address){
-		if(err){
-			console.log('Find address error ' + err);
-			res.status(404);
-			next(err);
-		}else{
-			console.log(address.updatedAt);
-			// Room.findOne({midAddress: req.params.midAddress, address: req.params.address}).exec(function(err, room){
-			// 	if(err){
-			// 		console.log(err);
-			// 		next(err);
-			// 	}else{
-			// 		console.log(room.updatedAt > address.updatedAt);
-			// 		res.send(200,{status: 'ok'});
-			// 		next();
-			// 	}
-			// })
-		}
-	})
+	
+	var address    = req.params.address;
+	var midAddress = req.params.midAddress;
+	var drys       = req.params.dry;
+	var wets  	   = req.params.wet;
+	var times 	   = req.params.sTime;
 
+	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
+	
+	
+	res.status(200);
+	next();
 
 	//var midAddress  = req.params.midAddress;
 	//var address = req.params.address;
