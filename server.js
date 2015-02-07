@@ -241,23 +241,23 @@ server.post('/commands', function(req, res, next){
 
 function generateValues(stringForArray){
 	console.log(stringForArray);
-	var array = [];
+	var k = [];
 	var lastIndex = stringForArray.lastIndexOf(',');
 
 	if(lastIndex == stringForArray.length -1){
 		var temp = stringForArray.substring(0, lastIndex - 1);
 		console.log('Temp is ' + temp);
 		temp.split(',').forEach(function(element, index, array){
-			array.push(parseFloat(element));
+			k.push(parseFloat(element));
 		});
 	}else{
 		stringForArray.split(',').forEach(function(element, index, array){
-			array.push(parseFloat(element));
+			k.push(parseFloat(element));
 		});
 	}
 	
-	console.log(array[0]);
-	return array;
+	console.log(k[0]);
+	return k;
 }
 
 function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
