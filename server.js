@@ -226,16 +226,23 @@ server.del('/stations/:station_id', function(req, res, next){
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
 	console.log('Send command');
-	Address.find().exec(function(err, data){
+	Address.findOne({address: req.params.address}).exec(function(err, address){
 		if(err){
-			console.log(err);
+			console.log('Find address error ' + err);
+			res.status(404);
 			next(err);
 		}else{
-			console.log('dd' + data[0].updatedAt);
-			res.send(200, {status: 'ok'});
-			next();
+			Room.findOne({midAddress: req.params.midAddress, address: req.params.address}).exec(function(err, room){
+				if(err){
+					console.log(err);
+					next(err);
+				}else{
+					console.log(room.updatedAt > address.updatedAt);
+					res.send(200,{status: 'ok'});
+					next();
+				}
+			})
 		}
-
 	})
 
 

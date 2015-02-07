@@ -12,4 +12,4 @@ var schema = new Schema({
    , updatedAt:   {type: Date, default: Date.now}
 });
 
-var Address = mongoose.model('Address', schema);
+module.exports = mongoose.model('Address', schema);
