@@ -213,7 +213,7 @@ server.post('/commands', function(req, res, next){
 				if(err)
 					next(err);
 				else{
-					console.log('Room ' + room.ip);
+					console.log(room.updatedAt < data.updatedAt);
 					res.send(200);
 					next();
 				}
