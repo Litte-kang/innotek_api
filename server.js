@@ -204,7 +204,9 @@ server.post('/commands', function(req, res, next){
 	var times 	   = req.params.sTime;
 
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
-	
+	Address.findOne({address: address}).exec(function(err, data){
+		console.log('Address is ' + data.ip);
+	})
 
 
 	
