@@ -245,7 +245,7 @@ function generateValues(stringForArray){
 	var lastIndex = stringForArray.lastIndexOf(',');
 
 	if(lastIndex == stringForArray.length -1){
-		var temp = stringForArray.substring(0, lastIndex - 1);
+		var temp = stringForArray.substring(0, lastIndex);
 		console.log('Temp is ' + temp);
 		temp.split(',').forEach(function(element, index, array){
 			k.push(parseFloat(element));
