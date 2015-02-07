@@ -207,7 +207,7 @@ server.post('/commands', function(req, res, next){
 	
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
 	Address.findOne({address: midAddress}).exec(function(err, data){
-		console.log('Address is ' + data.ip);
+	
 		if(err){
 			next(err);
 		}else{
@@ -223,7 +223,7 @@ server.post('/commands', function(req, res, next){
 				    	ip = room.ip;
 					console.log('IP is ' + ip);
 					
-
+					console.log('Times ' + req.params.sTime);
 					drys  = generateValues(req.params.dry);
 					wets  = generateValues(req.params.wet);
 					times = generateValues(req.params.sTime);
