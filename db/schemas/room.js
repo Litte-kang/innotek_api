@@ -1,6 +1,4 @@
 var mongoose = require('../config');
-var moment = require('moment-timezone');
-
 var Schema = mongoose.Schema;
 
 var schema = new Schema({

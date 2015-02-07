@@ -1,7 +1,7 @@
 var restify = require('restify');
 var crypto = require('crypto');
 
-var Information = require('./db/schemas/information');
+
 var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
 var Station = require('./db/schemas/station');
@@ -37,32 +37,6 @@ io.on('connection', function(socket){
 		socket.broadcast.emit('update store', {store: 'update'});
 	});
 });
-
-
-function getInformations(req, res, next){
-	Information.find().sort('-created_at').exec(function(err, data){
-		if(err){
-			console.log('ERROR');
-			next(err);
-		}
-		else
-			res.send(data);
-			next();
-	});
-
-}
-
-function getLastInformationsByType(req, res, next){
-	Information.find({info_type: req.params.type_id}).exec(function(err, data){
-		if(err){
-			console.log('ERROR');
-			next(err);
-		}else{
-			res.send(data);
-			next();
-		}
-	})
-}
 
 
 
@@ -152,9 +126,6 @@ function generateHashedPassword(password){
 	return sha.digest('hex');
 }
 
-server.get('/informations', getInformations);
-server.get('/informations/types/:type_id', getLastInformationsByType);
-
 
 server.get('/statuses/:address_id', getStatusByAddress);
 
@@ -225,7 +196,7 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
-	
+
 	var address    = req.params.address;
 	var midAddress = req.params.midAddress;
 	var drys       = req.params.dry;
@@ -234,8 +205,10 @@ server.post('/commands', function(req, res, next){
 
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
 	
+
+
 	
-	res.status(200);
+	res.send(200);
 	next();
 
 	//var midAddress  = req.params.midAddress;
