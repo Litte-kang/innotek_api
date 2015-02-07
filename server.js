@@ -225,8 +225,8 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
-	var midAddress  = req.params.midAddress;
-	var address = req.params.address;
+	//var midAddress  = req.params.midAddress;
+	//var address = req.params.address;
 	var dry = req.params.dry;
 	var wet = req.params.wet;
 	var time = req.params.sTime;
@@ -234,13 +234,21 @@ server.post('/commands', function(req, res, next){
 
 	console.log(midAddress);
 
-	Address.findOne({address: midAddress}).exec(function(err, data){
-		
-		if(!err){
-			console.log(data.updatedAt);
-			res.send(200);
-		}else{
+	Address.findOne({address: req.params.midAddress}).exec(function(err, address){
+		if(err){
+			console.log(err);
 			next(err);
+		}else{
+			Room.findOne({midAddress: req.params.midAddress}).exec(function(err, room){
+				if(err){
+					console.log(err);
+					next(err);
+				}else{
+					console.log('updatedAt : ' + room.updatedAt);
+					res.send(200,{status: 'ok'});
+					next();
+				}
+			})
 		}
 	})
 
