@@ -240,11 +240,21 @@ server.post('/commands', function(req, res, next){
 });
 
 function generateValues(stringForArray){
+	console.log(stringForArray);
 	var array = [];
-	stringForArray.split(',').forEach(function(element, index, array){
-		array.push(parseFloat(element));
-	});
-	array.pop();
+	var lastIndex = stringForArray.lastIndexOf(',');
+
+	if(lastIndex == stringForArray.length -1){
+		stringForArray.substring(0, lastIndex - 1).split(',').forEach(function(element, index, array){
+			array.push(parseFloat(element));
+		});
+	}else{
+		stringForArray.split(',').forEach(function(element, index, array){
+			array.push(parseFloat(element));
+		});
+	}
+	
+	
 	return array;
 }
 
