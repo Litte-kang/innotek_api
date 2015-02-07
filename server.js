@@ -256,7 +256,7 @@ function generateValues(stringForArray){
 		});
 	}
 	
-	
+	console.log(array[0]);
 	return array;
 }
 
