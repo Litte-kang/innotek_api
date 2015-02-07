@@ -207,7 +207,7 @@ server.post('/commands', function(req, res, next){
 	var wets;
 	var times;
 	var json;
-	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
+	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
 	Address.findOne({address: midAddress}).exec(function(err, data){
 		console.log('Address is ' + data.ip);
 		if(err){
@@ -217,7 +217,7 @@ server.post('/commands', function(req, res, next){
 				if(err)
 					next(err);
 				else{
-					console.log('Room updatedAt is ' + room.updatedAt < data.updatedAt + ' Address updatedAt');
+					console.log('Address updatedAt is ' + data.updatedAt);
 				    ip = room.updatedAt < data.updatedAt ? data.ip : room.ip;
 					console.log('IP is ' + ip);
 					
