@@ -6,6 +6,7 @@ var Room = require('./db/schemas/room');
 var User = require('./db/schemas/user');
 var Station = require('./db/schemas/station');
 var Command = require('./db/schemas/command');
+var Address = require('./db/schemas/address');
 
 var client = require('./client');
 
@@ -232,6 +233,12 @@ server.post('/commands', function(req, res, next){
 	var ip = req.params.ip;
 
 	//console.log(times);
+
+	Address.findOne({address: midAddress}).exec(function(err, data){
+		Room.findOne({midAddress: midAddress}).exec(function(err, room){
+			console.log(data.updatedAt > room.updatedAt);
+		});
+	})
 
 	var drys = [];
 	dry.split(',').forEach(function(element, index, array){

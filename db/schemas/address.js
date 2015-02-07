@@ -9,6 +9,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
 	 address:     String
    , ip: 		  String
+   , updatedAt:   {type: Date, default: Date.now}
 });
 
 var Address = mongoose.model('Address', schema);
