@@ -226,7 +226,7 @@ server.del('/stations/:station_id', function(req, res, next){
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
 	console.log('Send command');
-	Room.find().exec(function(err, data){
+	Address.find().exec(function(err, data){
 		if(err){
 			next(err);
 		}else{
