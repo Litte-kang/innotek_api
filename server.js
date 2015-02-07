@@ -232,16 +232,17 @@ server.post('/commands', function(req, res, next){
 			res.status(404);
 			next(err);
 		}else{
-			Room.findOne({midAddress: req.params.midAddress, address: req.params.address}).exec(function(err, room){
-				if(err){
-					console.log(err);
-					next(err);
-				}else{
-					console.log(room.updatedAt > address.updatedAt);
-					res.send(200,{status: 'ok'});
-					next();
-				}
-			})
+			console.log(address.updatedAt);
+			// Room.findOne({midAddress: req.params.midAddress, address: req.params.address}).exec(function(err, room){
+			// 	if(err){
+			// 		console.log(err);
+			// 		next(err);
+			// 	}else{
+			// 		console.log(room.updatedAt > address.updatedAt);
+			// 		res.send(200,{status: 'ok'});
+			// 		next();
+			// 	}
+			// })
 		}
 	})
 
