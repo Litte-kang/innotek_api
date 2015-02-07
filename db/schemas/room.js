@@ -8,8 +8,8 @@ var schema = new Schema({
    , address:       String
    , midAddress:    String
    , ip: 			String
-   , isBelow:       Number
-   , updatedAt:     String
+   , isBelow:      {type: Number, default: 0}	//上下棚标识  0标识上棚  1标识下棚， 默认为0
+   , updatedAt:    {type: Date, default: Date.now}
    , status:       [Number]
 });
 

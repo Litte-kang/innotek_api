@@ -245,7 +245,8 @@ server.post('/commands', function(req, res, next){
 					next(err);
 				}else{
 					console.log('updatedAt : ' + room.updatedAt);
-					res.send(200,{status: 'ok'});
+					res.status(200);
+
 					next();
 				}
 			})
@@ -313,11 +314,6 @@ function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveVal
 	
 	return json;
 }
-
-
-
-
-
 
 
 
