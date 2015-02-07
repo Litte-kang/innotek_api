@@ -218,7 +218,10 @@ server.post('/commands', function(req, res, next){
 					next(err);
 				else{
 					console.log('Address updatedAt is ' + data.updatedAt);
-				    ip = room.updatedAt < data.updatedAt ? data.ip : room.ip;
+				    if(data.updatedAt > room.updatedAt){
+				    	ip = data.ip;
+				    }else
+				    	ip = room.ip;
 					console.log('IP is ' + ip);
 					
 
