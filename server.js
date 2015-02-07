@@ -199,10 +199,14 @@ server.post('/commands', function(req, res, next){
 
 	var address    = req.params.address;
 	var midAddress = req.params.midAddress;
-	var drys       = req.params.dry;
-	var wets  	   = req.params.wet;
-	var times 	   = req.params.sTime;
-
+	// var drys       = req.params.dry;
+	// var wets  	   = req.params.wet;
+	//var times 	   = req.params.sTime;
+	var ip;
+	var drys;
+	var wets;
+	var times;
+	var json;
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
 	Address.findOne({address: midAddress}).exec(function(err, data){
 		console.log('Address is ' + data.ip);
@@ -213,7 +217,16 @@ server.post('/commands', function(req, res, next){
 				if(err)
 					next(err);
 				else{
-					console.log(room.updatedAt < data.updatedAt);
+				    ip = room.updatedAt < data.updatedAt ? data.ip : room.ip;
+					console.log('IP is ' + ip);
+					
+
+					drys  = generateValues(req.params.dry);
+					wets  = generateValues(req.params.wet);
+					times = generateValues(req.params.sTime);
+
+					json = MakeConfigCurve(midAddress, address, drys, wets, times);
+					client.SendCmdInfo(8125, ip, JSON.stringify(json));
 					res.send(200);
 					next();
 				}
@@ -276,7 +289,14 @@ server.post('/commands', function(req, res, next){
 
 });
 
-
+function generateValues(stringForArray){
+	var array = [];
+	stringForArray.split(',').forEach(function(element, index, array){
+		array.push(parseFloat(element));
+	});
+	array.pop();
+	return array;
+}
 
 function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
 {
