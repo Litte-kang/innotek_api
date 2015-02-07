@@ -235,11 +235,13 @@ server.post('/commands', function(req, res, next){
 	console.log(midAddress);
 
 	Address.findOne({address: midAddress}).exec(function(err, data){
+		console.log(data.updatedAt);
 		if(!err){
 			Room.findOne({midAddress: midAddress}).exec(function(err, room){
 				if(!err){
 					console.log(room.updatedAt < data.updatedAt);
 					res.send(200);
+					next();
 				}else{
 					next(err);
 				}
