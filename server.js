@@ -239,18 +239,11 @@ server.post('/commands', function(req, res, next){
 			console.log(err);
 			next(err);
 		}else{
-			Room.findOne({midAddress: req.params.midAddress}).exec(function(err, room){
-				if(err){
-					console.log(err);
-					next(err);
-				}else{
-					console.log('updatedAt : ' + room.updatedAt);
-					res.status(200);
-
-					next();
-				}
-			})
+			console.log(address.updatedAt);
+			res.send(200, {status: ok});
+			next();
 		}
+			
 	})
 
 	// var drys = [];
