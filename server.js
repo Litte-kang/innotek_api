@@ -225,26 +225,39 @@ server.del('/stations/:station_id', function(req, res, next){
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
-	//var midAddress  = req.params.midAddress;
-	//var address = req.params.address;
-	var dry = req.params.dry;
-	var wet = req.params.wet;
-	var time = req.params.sTime;
-	var ip = req.params.ip;
-
-	console.log(midAddress);
-
-	Address.findOne({address: req.params.midAddress}).exec(function(err, address){
+	console.log('Send command');
+	Room.find().exec(function(err, data){
 		if(err){
-			console.log(err);
 			next(err);
 		}else{
-			console.log(address.updatedAt);
-			res.send(200, {status: ok});
+			console.log(data.updatedAt);
+			res.send(200, {status: 'ok'});
 			next();
 		}
-			
+
 	})
+
+
+	//var midAddress  = req.params.midAddress;
+	//var address = req.params.address;
+	// var dry = req.params.dry;
+	// var wet = req.params.wet;
+	// var time = req.params.sTime;
+	// var ip = req.params.ip;
+
+	// console.log(midAddress);
+
+	// Address.findOne({address: req.params.midAddress}).exec(function(err, address){
+	// 	if(err){
+	// 		console.log(err);
+	// 		next(err);
+	// 	}else{
+	// 		console.log(address.updatedAt);
+	// 		res.send(200, {status: ok});
+	// 		next();
+	// 	}
+			
+	// })
 
 	// var drys = [];
 	// dry.split(',').forEach(function(element, index, array){
