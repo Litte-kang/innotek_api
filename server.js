@@ -230,7 +230,7 @@ server.post('/commands', function(req, res, next){
 		if(err){
 			next(err);
 		}else{
-			console.log(data.updatedAt);
+			console.log('dd' + data.updatedAt);
 			res.send(200, {status: 'ok'});
 			next();
 		}
