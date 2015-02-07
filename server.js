@@ -232,7 +232,7 @@ server.post('/commands', function(req, res, next){
 	var time = req.params.sTime;
 	var ip = req.params.ip;
 
-	console.log(wet);
+	console.log(midAddress);
 
 	Address.findOne({address: midAddress}).exec(function(err, data){
 		if(err){
