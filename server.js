@@ -206,12 +206,21 @@ server.post('/commands', function(req, res, next){
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress + ' and times : ' + times); 
 	Address.findOne({address: midAddress}).exec(function(err, data){
 		console.log('Address is ' + data.ip);
-	})
+		if(err){
+			next(err);
+		}else{
+			Room.findOne({address: address, midAddress: midAddress}).exec(function(err, room){
+				if(err)
+					next(err);
+				else{
+					console.log('Room ' + room.ip);
+					res.send(200);
+					next();
+				}
+			})
+		}
+	});
 
-
-	
-	res.send(200);
-	next();
 
 	//var midAddress  = req.params.midAddress;
 	//var address = req.params.address;
