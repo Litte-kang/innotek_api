@@ -228,6 +228,7 @@ server.post('/commands', function(req, res, next){
 	console.log('Send command');
 	Address.find().exec(function(err, data){
 		if(err){
+			console.log(err);
 			next(err);
 		}else{
 			console.log('dd' + data[0].updatedAt);
