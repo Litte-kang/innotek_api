@@ -235,9 +235,7 @@ server.post('/commands', function(req, res, next){
 	console.log(wet);
 
 	Address.findOne({address: midAddress}).exec(function(err, data){
-		Room.findOne({midAddress: midAddress}).exec(function(err, room){
-			console.log("ddddd");
-		});
+		console.log(data.updatedAt);
 	})
 
 	var drys = [];
