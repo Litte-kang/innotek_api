@@ -236,7 +236,7 @@ server.post('/commands', function(req, res, next){
 
 	Address.findOne({address: midAddress}).exec(function(err, data){
 		Room.findOne({midAddress: midAddress}).exec(function(err, room){
-			console.log(data.updatedAt > room.updatedAt);
+			console.log("ddddd");
 		});
 	})
 
