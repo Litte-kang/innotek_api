@@ -12,7 +12,7 @@ var schema = new Schema({
 	lastLogin:        String,
 	createdAt:        {type: String, default: moment().utc('Asia/Shanghai').format()},
 	updatedAt:  	  String,
-	stations:         [Schema.Types.Mixed]
+	states:           [Schema.Types.Mixed]
 });
 
 module.exports = mongoose.model('User', schema);

@@ -31,21 +31,6 @@ Station.find().select("_id name").exec(function(err, stations){
 		console.log('Create user err ' + err);
 	}
 	
-	// 	User.create({
-	// 				userId: '160386',
-	// 				hashedPassword: generateHashedPassword('123456'),
-	// 				firstName: 'Jay',
-	// 				lastName: 'King',
-	// 				stations: array
-	// 	}, function(err, user){
-	// 			if(err)
-	// 				console.log(err);
-	// 			else
-	// 				console.log(user);
-	// 	});
-	// }else{
-	// 	console.log('Create user err ' + err);
-	// }
 });
 
 
