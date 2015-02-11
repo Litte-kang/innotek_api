@@ -7,6 +7,7 @@ var User = require('./db/schemas/user');
 var Station = require('./db/schemas/station');
 var Command = require('./db/schemas/command');
 var Address = require('./db/schemas/address');
+var State = require('./db/schemas/state');
 
 var client = require('./client');
 
@@ -100,9 +101,9 @@ function deleteUser(req, res, next){
 	});
 }
 
-//用户登录
+//用户登录, 返回该用户基本信息
 function login(req, res, next){
-	console.log('Get a login request userId: ' + req.params.userId + " and password is: " + req.params.password);
+	//console.log('Get a login request userId: ' + req.params.userId + " and password is: " + req.params.password);
 
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id userId firstName lastName  states')
@@ -114,12 +115,12 @@ function login(req, res, next){
 							else{
 								console.log('Login data: ' + data);
 								res.charSet('utf-8');
-								res.send(200,{user: data});
+								res.send(200, {user: data});
 								next();
 							}
-
-	});
+						});
 }
+
 
 function generateHashedPassword(password){
 	var sha = crypto.createHash('sha1');
@@ -194,6 +195,24 @@ server.del('/stations/:station_id', function(req, res, next){
 	});
 });
 
+
+server.get('/states/:state_id/stations', function(req, res, next){
+	State.findOne({_id: req.params.state_id}, function(err, state){
+		if(err){
+			next(err);
+		}else{
+			Station.find().where('_id').in(state.stations).exec(function(err, stations){
+				if(err){
+					res.send(500);
+					next(err);
+				}else{
+					res.send(200, {stations: stations});
+					next()
+				}
+			});
+		}
+	})
+});
 
 //Save command and sent to middleware
 server.post('/commands', function(req, res, next){
