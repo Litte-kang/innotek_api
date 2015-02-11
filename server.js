@@ -206,6 +206,7 @@ server.get('/states/:state_id/stations', function(req, res, next){
 					res.send(500);
 					next(err);
 				}else{
+					res.charSet('utf-8');
 					res.send(200, {stations: stations});
 					next()
 				}
