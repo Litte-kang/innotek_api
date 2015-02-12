@@ -5,7 +5,7 @@ var schema = new Schema({
 	address:      String,
 	midAddress:   String,
 	infoType:     Number,
-	curves:       [Number] 
+	curves:       [Schema.Types.Mixed] 
 
 });
 
