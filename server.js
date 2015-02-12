@@ -8,6 +8,8 @@ var Station = require('./db/schemas/station');
 var Command = require('./db/schemas/command');
 var Address = require('./db/schemas/address');
 var State = require('./db/schemas/state');
+var Curve = require('./db/schemas/curve');
+
 
 var client = require('./client');
 
@@ -337,6 +339,18 @@ server.get('/rooms', function(req, res, next){
 			next(err);
 		}else{
 			res.send(200, {rooms: rooms});
+			next();
+		}
+	})
+});
+
+server.get('/curves/:address/:midAddress', function(req, res, next){
+	Curve.findOne({midAddress: params.midAddress, address: params.address}).exec(function(err, curve){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.send(200, {curve: curve});
 			next();
 		}
 	})
