@@ -351,7 +351,10 @@ server.get('/curves/:address/:midAddress', function(req, res, next){
 			res.send(500);
 			next(err);
 		}else{
-			res.send(200, {curve: curve});
+			if(curve != null)
+				res.send(200, {curve: curve});
+			else
+				res.send(200, null);
 			next();
 		}
 	})
