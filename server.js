@@ -345,6 +345,7 @@ server.get('/rooms', function(req, res, next){
 });
 
 server.get('/curves/:address/:midAddress', function(req, res, next){
+	console.log(req.params.midAddress + " : " + req.params.address);
 	Curve.findOne({midAddress: req.params.midAddress, address: req.params.address}).exec(function(err, curve){
 		if(err){
 			res.send(500);
