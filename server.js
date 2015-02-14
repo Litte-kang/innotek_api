@@ -378,7 +378,8 @@ server.get('/users/:user_id/states', function(req, res, next){
 			res.send(500);
 			next(err);
 		}else{
-			res.send(200, {states: states});
+			res.charSet('utf-8');
+			res.send(200, states);
 			next();
 		}
 	})
