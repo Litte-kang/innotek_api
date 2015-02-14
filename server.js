@@ -9,6 +9,7 @@ var Command = require('./db/schemas/command');
 var Address = require('./db/schemas/address');
 var State = require('./db/schemas/state');
 var Curve = require('./db/schemas/curve');
+var Information = require('./db/schemas/information');
 
 
 var client = require('./client');
@@ -355,7 +356,20 @@ server.get('/curves/:address/:midAddress', function(req, res, next){
 			next();
 		}
 	})
-})
+});
+
+server.get('/informations/:address/:midAddress', function(req, res, next){
+	Information.findOne({midAddress: req.params.midAddress, address: req.params.address, infoType:2 })
+					.exec(function(err, information){
+						if(err){
+							res.send(500);
+							next(err);
+						}else{
+							res.end(200, {info: information});
+							next();
+						}
+					});
+});
 
 
 

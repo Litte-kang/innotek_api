@@ -17,8 +17,8 @@ var schema = new Schema({
      infoType:     {type: Number, default: 0},      
      address:      String,						//自控仪地址
      midAddress:   String,						//中间件地址
-     isBelow:      Number,						//上下棚标识  0标识下棚  1标识上棚
-     createdAt:    String,
+     isBelow:      {type: Number, default: 0},	//上下棚标识  0标识上棚  1标识下棚， 默认为0
+     createdAt:    {type: Date, default: Date.now},
      ip:           String,
      information:  [Number]
    
