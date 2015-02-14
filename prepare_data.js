@@ -14,24 +14,26 @@ Room.find().select("_id").exec(function(err, data){
 	});
 });
 
-// Station.find().select('_id').exec(function(err, data){
-// 	console.log('Stations id: ' + data);
-// 	State.findOneAndUpdate({code: '1001'}, {stations: data}, function(err, state){
-// 		if(err)
-// 			console.log(err);
-// 		else
-// 			console.log(state);
-// 	})
-// });
+Station.find().select('_id').exec(function(err, data){
+	console.log('Stations id: ' + data);
+	State.findOneAndUpdate({code: '1001'}, {stations: data}, function(err, state){
+		if(err)
+			console.log(err);
+		else
+			console.log(state);
+	})
+});
 
-// State.find().select('_id name').exec(function(err, data){
-// 	console.log('_id:' + data._id + ' and name: ' + data.name);
+State.find().select('_id name').exec(function(err, data){
+	console.log('_id:' + data._id + ' and name: ' + data.name);
 
-// 	User.findOneAndUpdate({userId: '160386'},  {states: data}, function(err, user){
-// 		if(err)
-// 			console.log(err);
-// 		else
-// 			console.log(user);
-// 	})
-// });
+	User.findOneAndUpdate({userId: '160386'},  {states: data}, function(err, user){
+		if(err)
+			console.log(err);
+		else
+			console.log(user);
+	})
+});
+
+State.
 

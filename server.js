@@ -372,5 +372,17 @@ server.get('/informations/:address/:midAddress', function(req, res, next){
 	});
 });
 
+server.get('/users/:user_id/states', function(req, res, next){
+	User.findOne({_id: req.params.user_id}).select('states').exec(function(err, states){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.send(200, {states: states});
+			next();
+		}
+	})
+})
+
 
 
