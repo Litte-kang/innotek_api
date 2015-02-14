@@ -21,8 +21,8 @@ var server = restify.createServer({
 	version: '0.0.1'
 });
 
-var socketio = require('socket.io');
-var io = socketio.listen(server.server);
+// var socketio = require('socket.io');
+// var io = socketio.listen(server.server);
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
@@ -35,12 +35,12 @@ server.listen(PORT, function(){
 });
 
 
-io.on('connection', function(socket){
-	socket.on('refresh store', function(data){
-		// tell web server to update store from browser
-		socket.broadcast.emit('update store', {store: 'update'});
-	});
-});
+// io.on('connection', function(socket){
+// 	socket.on('refresh store', function(data){
+// 		// tell web server to update store from browser
+// 		socket.broadcast.emit('update store', {store: 'update'});
+// 	});
+// });
 
 
 
@@ -359,17 +359,17 @@ server.get('/curves/:address/:midAddress', function(req, res, next){
 });
 
 server.get('/informations/:address/:midAddress', function(req, res, next){
-	console.log("get information");
-	Information.findOne({midAddress: req.params.midAddress, address: req.params.address, infoType:2 })
-					.exec(function(err, information){
-						if(err){
-							res.send(500);
-							next(err);
-						}else{
-							res.end(200, {info: information});
-							next();
-						}
-					});
+	console.log('Get informations');
+	Information.findOne({address: req.params.address, midAddress: req.params.midAddress, infoType: 2}).exec(function(err, information){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.send(200,{info: information});
+			next();
+		}
+
+	});
 });
 
 
