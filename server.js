@@ -359,6 +359,7 @@ server.get('/curves/:address/:midAddress', function(req, res, next){
 });
 
 server.get('/informations/:address/:midAddress', function(req, res, next){
+	console.log("get information");
 	Information.findOne({midAddress: req.params.midAddress, address: req.params.address, infoType:2 })
 					.exec(function(err, information){
 						if(err){

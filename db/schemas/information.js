@@ -24,6 +24,6 @@ var schema = new Schema({
    
 });
 
-var Information = mongoose.model('Information', schema);
+module.exports = mongoose.model('Information', schema);
 
-module.exports = Information;
+
