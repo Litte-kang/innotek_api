@@ -6,10 +6,10 @@ var User = require('./db/schemas/user');
 
 		
 	User.create({
-					userId: '160386',
+					userId: '100000',
 					hashedPassword: generateHashedPassword('123456'),
-					firstName: 'Jay',
-					lastName: 'King',
+					firstName: 'Bob',
+					lastName: 'Zhang',
 					
 		}, function(err, user){
 				if(err)

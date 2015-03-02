@@ -356,7 +356,7 @@ server.get('/rooms/:id', function(req, res, next){
 			next();
 		}
 	})
-})
+});
 
 
 server.get('/curves/:address/:midAddress', function(req, res, next){
@@ -397,7 +397,21 @@ server.get('/users/:user_id/states', function(req, res, next){
 			next();
 		}
 	})
-})
+});
+
+//Get all middleware
+server.get('/middlewares/', function(req, res, next){
+	Address.find().exec(function(err, data){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.charSet('utf-8');
+			res.send(200, {devices: data});
+			next();
+		}
+	});
+});
 
 
 
