@@ -348,18 +348,19 @@ server.get('/rooms', function(req, res, next){
 	})
 });
 
-server.get('/rooms/:id', function(req, res, next){
-	Room.findOne({_id: req.params.id}).exec(function(err, room){
-		if(err){
-			res.send(500);
-			next(err);
-		}else{
-			res.charSet('utf-8');
-			res.send(200, {data: room});
-			next();
-		}
-	})
-});
+// server.get('/rooms/:id', function(req, res, next){
+// 	console.log("get room by _id");
+// 	Room.findOne({_id: req.params.id}).exec(function(err, room){
+// 		if(err){
+// 			res.send(500);
+// 			next(err);
+// 		}else{
+// 			res.charSet('utf-8');
+// 			res.send(200, {data: room});
+// 			next();
+// 		}
+// 	})
+// });
 
 
 server.get('/curves/:address/:midAddress', function(req, res, next){
@@ -454,6 +455,20 @@ server.get('/middlewares/', function(req, res, next){
 		}
 	});
 });
+
+server.get('/rooms/:room_id', function(req, res, next){
+	console.log("Get room by address");
+	Room.findOne({address: req.params.roomID}).exec(function(err, data){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.charSet('utf-8');
+			res.send(200, {room: data});
+			next();
+		}
+	})
+})
 
 
 
