@@ -407,6 +407,7 @@ server.post('/prefer_rooms', function(req, res, next){
 	console.log('Create prefer rooms');
 	Prefer.create({
 		 room_no:            req.params.room_no,
+		 tobacco_no:         req.params.tobacco_no,
 		 room_type:          req.params.room_type,
 		 fan_type:           req.params.fan_type,
 		 heating_equipment:  req.params.heating_equipment,
