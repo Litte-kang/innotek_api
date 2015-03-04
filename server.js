@@ -412,7 +412,7 @@ server.post('/prefer_rooms', function(req, res, next){
 		 heating_equipment:  req.params.heating_equipment,
 		 person_in_charge:   req.params.person_in_charge,
 		 room_user:          req.params.room_user,
-		 phone:              req.params.phone
+		 phone:              req.params.phone,
 		 room_id:            req.params.room_id,
 		 user_id:            req.params.user_id
 	}, function(err, room){
