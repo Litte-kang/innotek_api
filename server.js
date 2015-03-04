@@ -458,7 +458,7 @@ server.get('/middlewares/', function(req, res, next){
 
 server.get('/rooms/:room_id', function(req, res, next){
 	console.log("Get room by address");
-	Room.findOne({address: req.params.roomID}).exec(function(err, data){
+	Room.findOne({address: req.params.room_id}).exec(function(err, data){
 		if(err){
 			res.send(500);
 			next(err);
