@@ -13,6 +13,7 @@ var schema = new Schema({
 	createdAt:        {type: String, default: moment().utc('Asia/Shanghai').format()},
 	updatedAt:  	  String,
 	states:           [Schema.Types.Mixed]
+	rooms:            [Schema.Types.ObjectId]
 });
 
 module.exports = mongoose.model('User', schema);

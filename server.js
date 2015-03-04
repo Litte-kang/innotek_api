@@ -109,19 +109,20 @@ function login(req, res, next){
 	//console.log('Get a login request userId: ' + req.params.userId + " and password is: " + req.params.password);
 
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
-				.select('_id userId firstName lastName  states')
+				.select('_id userId firstName lastName  states rooms')
 				.exec(function(err, data){
-							if(err){
-								console.log(err);
-								next(err);
-							}
-							else{
-								console.log('Login data: ' + data);
-								res.charSet('utf-8');
-								res.send(200, {user: data});
-								next();
-							}
-						});
+						if(err){
+							console.log(err);
+							next(err);
+						}
+						else{
+							console.log('Login data: ' + data);
+							res.charSet('utf-8');
+							res.send(200, {user: data});
+							next();
+						}
+					}
+				);
 }
 
 
