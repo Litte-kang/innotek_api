@@ -10,7 +10,7 @@ var Address = require('./db/schemas/address');
 var State = require('./db/schemas/state');
 var Curve = require('./db/schemas/curve');
 var Information = require('./db/schemas/information');
-
+var Prefer = require('./db/schemas/prefer_rooms')
 
 var client = require('./client');
 
@@ -86,9 +86,9 @@ function createUser(req, res, next){
 			next();
 		}
 	});
-
-
 }
+
+
 
 function deleteUser(req, res, next){
 	console.log(req.params.user_id);
@@ -109,7 +109,7 @@ function login(req, res, next){
 	//console.log('Get a login request userId: ' + req.params.userId + " and password is: " + req.params.password);
 
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
-				.select('_id userId firstName lastName  states rooms')
+				.select('_id userId firstName lastName  states')
 				.exec(function(err, data){
 						if(err){
 							console.log(err);
@@ -124,6 +124,8 @@ function login(req, res, next){
 					}
 				);
 }
+
+
 
 
 function generateHashedPassword(password){
@@ -399,6 +401,32 @@ server.get('/users/:user_id/states', function(req, res, next){
 		}
 	})
 });
+
+//Create prefer room
+server.post('/prefer_rooms', function(req, res, next){
+	console.log('Create prefer rooms');
+	Prefer.create({
+		 room_no:            req.params.room_no,
+		 room_type:          req.params.room_type,
+		 fan_type:           req.params.fan_type,
+		 heating_equipment:  req.params.heating_equipment,
+		 person_in_charge:   req.params.person_in_charge,
+		 room_user:          req.params.room_user,
+		 phone:              req.params.phone
+		 room_id:            req.params.room_id,
+		 user_id:            req.params.user_id
+	}, function(err, room){
+		if(err){
+			console.log('error in create prefer room' + err);
+			next(err);
+		}
+		else{
+			res.status(200);
+			next();
+		}
+	});
+});
+
 
 //Get all middleware
 server.get('/middlewares/', function(req, res, next){
