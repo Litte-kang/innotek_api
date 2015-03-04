@@ -427,6 +427,18 @@ server.post('/prefer_rooms', function(req, res, next){
 	});
 });
 
+server.get('/users/:user_id/prefers', function(req, res, next){
+	Prefer.find({user_id: req.params.user_id}).exec(function(err, data){
+		if(err){
+			console.log('Found prefer error ' + err);
+			next(err);
+		}else{
+			res.charSet('utf-8');
+			res.send(200, {prefers: data});
+			next();
+		}
+	})
+});
 
 //Get all middleware
 server.get('/middlewares/', function(req, res, next){
