@@ -466,7 +466,7 @@ server.get('/addresses', function(req, res, next){
 			next(err);
 		}else{
 			res.charSet('utf-8');
-			res.send(200, {devices: data});
+			res.send(200, {addresses: data});
 			next();
 		}
 	});
