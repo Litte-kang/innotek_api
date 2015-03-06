@@ -443,6 +443,7 @@ server.get('/users/:user_id/prefers', function(req, res, next){
 });
 
 //Get all middleware
+
 server.get('/middlewares/', function(req, res, next){
 	Address.find().exec(function(err, data){
 		if(err){
@@ -455,6 +456,22 @@ server.get('/middlewares/', function(req, res, next){
 		}
 	});
 });
+
+
+server.get('/addresses', function(req, res, next){
+	Address.find().exec(function(err, data){
+		if(err){
+			res.send(500);
+			next(err);
+		}else{
+			res.charSet('utf-8');
+			res.send(200, {devices: data});
+			next();
+		}
+	});
+});
+
+
 
 server.get('/rooms/:room_id', function(req, res, next){
 	console.log("Get room by address");
