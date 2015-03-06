@@ -466,8 +466,7 @@ server.get('/addresses', function(req, res, next){
 			next(err);
 		}else{
 			res.charSet('utf-8');
-			var obj = {_id: data._id, ip: data.ip, info: data.data}
-			res.send(200, {addresses: obj});
+			res.send(200, {addresses: data});
 			next();
 		}
 	});
