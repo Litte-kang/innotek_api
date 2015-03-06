@@ -459,6 +459,7 @@ server.get('/middlewares/', function(req, res, next){
 
 
 server.get('/addresses', function(req, res, next){
+	console.log('Fetch all addresses');
 	Address.find().exec(function(err, data){
 		if(err){
 			res.send(500);
