@@ -5,7 +5,7 @@ var schema = new Schema({
 	 address:     String
    , ip: 		  String
    , updatedAt:   Date
-   , data:        [Number]
+   , data:        [Schema.Types.Mixed]
 });
 
 module.exports = mongoose.model('Address', schema);
