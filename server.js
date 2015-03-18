@@ -43,21 +43,14 @@ server.listen(PORT, function(){
 // });
 
 
+/**
+*
+* 用户管理
+*
+*/
 
-
-function getStatusByAddress(req, res, next){
-	Status.find({address: req.params.address_id}).exec(function(err, data){
-		if(err){
-			console.log('Get status error');
-			next(err);
-		}else{
-			console.log('Get status for ' + req.params.address_id + ': ' + data);
-			next();
-		}
-	});
-}
-
-function getUsers(req, res, next){
+//列出所有用户
+server.get('/users', function(req, res, next){
 	User.find().select('_id firstName lastName userId stations').exec(function(err, data){
 		if(err){
 			console.log('Get users error');
@@ -67,7 +60,37 @@ function getUsers(req, res, next){
 			next();
 		}
 	});
-}
+});
+
+
+server.post('/users', createUser);
+server.del('/users/:user_id', deleteUser);
+
+server.get('/users/:user_id', function(req, res, next){
+	User.findOne({_id: req.params.user_id}).select('_id userId firstName lastName stations').exec(function(err, user){
+		if(err)
+			next(err);
+		else{
+			res.send(200, {user: user});
+			next();
+		}
+
+	});
+});
+
+
+
+// function getUsers(req, res, next){
+// 	User.find().select('_id firstName lastName userId stations').exec(function(err, data){
+// 		if(err){
+// 			console.log('Get users error');
+// 			next(err);
+// 		}else{
+// 			res.send({users: data});
+// 			next();
+// 		}
+// 	});
+// }
 
 function createUser(req, res, next){
 	//req.accepts('application/json');
@@ -106,8 +129,6 @@ function deleteUser(req, res, next){
 
 //用户登录, 返回该用户基本信息
 function login(req, res, next){
-	//console.log('Get a login request userId: ' + req.params.userId + " and password is: " + req.params.password);
-
 	User.findOne({'userId': req.params.userId, 'hashedPassword': generateHashedPassword(req.params.password)})
 				.select('_id userId firstName lastName  states')
 				.exec(function(err, data){
@@ -126,8 +147,6 @@ function login(req, res, next){
 }
 
 
-
-
 function generateHashedPassword(password){
 	var sha = crypto.createHash('sha1');
 	sha.update(password);
@@ -135,22 +154,22 @@ function generateHashedPassword(password){
 }
 
 
-server.get('/statuses/:address_id', getStatusByAddress);
 
-server.get('/users', getUsers);
-server.post('/users', createUser);
-server.del('/users/:user_id', deleteUser);
-server.get('/users/:user_id', function(req, res, next){
-	User.findOne({_id: req.params.user_id}).select('_id userId firstName lastName stations').exec(function(err, user){
-		if(err)
+function getStatusByAddress(req, res, next){
+	Status.find({address: req.params.address_id}).exec(function(err, data){
+		if(err){
+			console.log('Get status error');
 			next(err);
-		else{
-			res.send(200, {user: user});
+		}else{
+			console.log('Get status for ' + req.params.address_id + ': ' + data);
 			next();
 		}
-
 	});
-});
+}
+
+server.get('/statuses/:address_id', getStatusByAddress);
+
+
 
 
 server.post('/login', login);
@@ -232,38 +251,58 @@ server.post('/commands', function(req, res, next){
 	var times;
 	var json;
 	
-	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
-	Address.findOne({address: midAddress}).exec(function(err, data){
-	
-		if(err){
-			next(err);
-		}else{
-			Room.findOne({address: address, midAddress: midAddress}).exec(function(err, room){
-				if(err)
-					next(err);
-				else{
-					console.log('Address updatedAt is ' + data.updatedAt);
-					console.log('Room upatedAt is' + room.updatedAt);
-				    if(data.updatedAt > new Date(room.updatedAt)){
-				    	ip = data.ip;
-				    }else
-				    	ip = room.ip;
-					console.log('IP is ' + ip);
-					
-					console.log('Times ' + req.params.sTime);
-					drys  = generateValues(req.params.dry);
-					wets  = generateValues(req.params.wet);
-					times = generateValues(req.params.sTime);
+	drys  = generateValues(req.params.dry);
+	wets  = generateValues(req.params.wet);
+	times = generateValues(req.params.sTime);
+	json = MakeConfigCurve(midAddress, address, drys, wets, times);
 
-					json = MakeConfigCurve(midAddress, address, drys, wets, times);
-					console.log('Data is ' + JSON.stringify(json));
-					client.SendCmdInfo(8125, ip, JSON.stringify(json));
-					res.send(200);
-					next();
-				}
-			})
-		}
-	});
+	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
+	Curve.findOneAndUpdate({address: address, midAddress: midAddress},
+						   {infoType: 12, address: address, midAddress: midAddress, curves: json },
+						   {upsert: true},
+						   function(err, data){
+						   		if(err){
+						   			res.send(500);
+						   			next(err);
+						   		}else{
+						   			console.log('Curve saved success');
+						   			res.send(200);
+									next()
+						   		}
+						   })
+
+	
+	// Address.findOne({address: midAddress}).exec(function(err, data){
+	
+	// 	if(err){
+	// 		next(err);
+	// 	}else{
+	// 		Room.findOne({address: address, midAddress: midAddress}).exec(function(err, room){
+	// 			if(err)
+	// 				next(err);
+	// 			else{
+	// 				console.log('Address updatedAt is ' + data.updatedAt);
+	// 				console.log('Room upatedAt is' + room.updatedAt);
+	// 			    if(data.updatedAt > new Date(room.updatedAt)){
+	// 			    	ip = data.ip;
+	// 			    }else
+	// 			    	ip = room.ip;
+	// 				console.log('IP is ' + ip);
+					
+	// 				console.log('Times ' + req.params.sTime);
+	// 				drys  = generateValues(req.params.dry);
+	// 				wets  = generateValues(req.params.wet);
+	// 				times = generateValues(req.params.sTime);
+
+	// 				json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	// 				console.log('Data is ' + JSON.stringify(json));
+	// 				client.SendCmdInfo(8125, ip, JSON.stringify(json));
+	// 				res.send(200);
+	// 				next();
+	// 			}
+	// 		})
+	// 	}
+	// });
 });
 
 function generateValues(stringForArray){
@@ -348,19 +387,7 @@ server.get('/rooms', function(req, res, next){
 	})
 });
 
-// server.get('/rooms/:id', function(req, res, next){
-// 	console.log("get room by _id");
-// 	Room.findOne({_id: req.params.id}).exec(function(err, room){
-// 		if(err){
-// 			res.send(500);
-// 			next(err);
-// 		}else{
-// 			res.charSet('utf-8');
-// 			res.send(200, {data: room});
-// 			next();
-// 		}
-// 	})
-// });
+
 
 
 server.get('/curves/:address/:midAddress', function(req, res, next){
