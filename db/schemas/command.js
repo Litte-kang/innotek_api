@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
 
-	infoType: 		{type: Number, default: 0},
+	infoType: 		{type: Number, default: 12},
 	address:   		String,
-	command: 	    [Schema.Types.Mixed],
-	ip:             String,
+	midAddress:     String,
+	curves: 	    Schema.Types.Mixed,
 	createdAt:  	{type: Date, default: Date.now}
 });
 

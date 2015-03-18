@@ -257,7 +257,7 @@ server.post('/commands', function(req, res, next){
 	json = MakeConfigCurve(midAddress, address, drys, wets, times);
 
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
-	Curve.findOneAndUpdate({address: address, midAddress: midAddress},
+	Command.findOneAndUpdate({address: address, midAddress: midAddress},
 						   {infoType: 12, address: address, midAddress: midAddress, curves: json },
 						   {upsert: true},
 						   function(err, data){
