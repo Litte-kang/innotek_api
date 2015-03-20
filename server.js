@@ -257,6 +257,7 @@ server.post('/commands', function(req, res, next){
 	json = MakeConfigCurve(midAddress, address, drys, wets, times);
 
 	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
+	console.log('JSON : ' + JSON.stringify(json));
 	Command.findOneAndUpdate({address: address, midAddress: midAddress},
 						   {infoType: 12, address: address, midAddress: midAddress, curves: json },
 						   {upsert: true},
@@ -269,40 +270,7 @@ server.post('/commands', function(req, res, next){
 						   			res.send(200);
 									next()
 						   		}
-						   })
-
-	
-	// Address.findOne({address: midAddress}).exec(function(err, data){
-	
-	// 	if(err){
-	// 		next(err);
-	// 	}else{
-	// 		Room.findOne({address: address, midAddress: midAddress}).exec(function(err, room){
-	// 			if(err)
-	// 				next(err);
-	// 			else{
-	// 				console.log('Address updatedAt is ' + data.updatedAt);
-	// 				console.log('Room upatedAt is' + room.updatedAt);
-	// 			    if(data.updatedAt > new Date(room.updatedAt)){
-	// 			    	ip = data.ip;
-	// 			    }else
-	// 			    	ip = room.ip;
-	// 				console.log('IP is ' + ip);
-					
-	// 				console.log('Times ' + req.params.sTime);
-	// 				drys  = generateValues(req.params.dry);
-	// 				wets  = generateValues(req.params.wet);
-	// 				times = generateValues(req.params.sTime);
-
-	// 				json = MakeConfigCurve(midAddress, address, drys, wets, times);
-	// 				console.log('Data is ' + JSON.stringify(json));
-	// 				client.SendCmdInfo(8125, ip, JSON.stringify(json));
-	// 				res.send(200);
-	// 				next();
-	// 			}
-	// 		})
-	// 	}
-	// });
+						   });
 });
 
 function generateValues(stringForArray){
