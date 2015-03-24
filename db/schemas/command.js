@@ -11,20 +11,20 @@ var schema = new Schema({
 	createdAt:  	{type: Date, default: Date.now}
 });
 
-var Command = mongoose.model('Command', schema, 'Command');
+module.exports = mongoose.model('Command', schema);
 
-module.exports.AddCommand = function(options, doc){
+// module.exports.AddCommand = function(options, doc){
 
-	Command.findOneAndUpdate(options, doc, {upsert: true}, function(err, data){
+// 	Command.findOneAndUpdate(options, doc, {upsert: true}, function(err, data){
 						   
-   		if(err){
-   			console.log('command saved failed');
-   			res.send(500);
-   			next(err);
-   		}else{
-   			console.log('command saved success');
-   			res.send(200);
-			next()
-   		}
-	});	
-};
+//    		if(err){
+//    			console.log('command saved failed');
+//    			res.send(500);
+//    			next(err);
+//    		}else{
+//    			console.log('command saved success');
+//    			res.send(200);
+// 			next()
+//    		}
+// 	});	
+// };

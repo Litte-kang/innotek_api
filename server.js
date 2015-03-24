@@ -12,6 +12,8 @@ var Curve = require('./db/schemas/curve');
 var Information = require('./db/schemas/information');
 var Prefer = require('./db/schemas/prefer_rooms')
 
+
+
 var client = require('./client');
 
 var PORT = 8080;
@@ -245,21 +247,24 @@ server.post('/commands', function(req, res, next){
 
 	var address    = req.params.address;
 	var midAddress = req.params.midAddress;
-	var ip;
-	var drys;
-	var wets;
-	var times;
-	var json;
-	
-	drys  = generateValues(req.params.dry);
-	wets  = generateValues(req.params.wet);
-	times = generateValues(req.params.sTime);
-	json = MakeConfigCurve(midAddress, address, drys, wets, times);
+	var infoType = req.params.infoType;
 
-	console.log('Address is ' + address + ' and MidAddress is ' + midAddress); 
-	console.log('JSON : ' + JSON.stringify(json));
-	Command.findOneAndUpdate({address: address, midAddress: midAddress},
-						   {infoType: 12, address: address, midAddress: midAddress, curves: json },
+	switch(infoType){
+		case 12:
+			var ip;
+			var drys;
+			var wets;
+			var times;
+			var json;
+	
+			drys  = generateValues(req.params.dry);
+			wets  = generateValues(req.params.wet);
+			times = generateValues(req.params.sTime);
+	
+			json = MakeConfigCurve(midAddress, address, drys, wets, times);
+
+			Command.findOneAndUpdate({address: address, midAddress: midAddress},
+						   {infoType: 12, address: address, midAddress: midAddress, command: json },
 						   {upsert: true},
 						   function(err, data){
 						   		if(err){
@@ -271,55 +276,58 @@ server.post('/commands', function(req, res, next){
 									next()
 						   		}
 						   });
+			break;
+	}
+
+
 });
 
 function generateValues(stringForArray){
 	console.log(stringForArray);
-	var k = [];
+	var array = [];
 	var lastIndex = stringForArray.lastIndexOf(',');
 
-	if(lastIndex == stringForArray.length -1){
+	if(lastIndex == stringForArray.length - 1){
 		var temp = stringForArray.substring(0, lastIndex);
-		console.log('Temp is ' + temp);
 		temp.split(',').forEach(function(element, index, array){
-			k.push(parseFloat(element));
+			array.push(parseFloat(element));
 		});
 	}else{
 		stringForArray.split(',').forEach(function(element, index, array){
-			k.push(parseFloat(element));
+			array.push(parseFloat(element));
 		});
 	}
 	
-	console.log(k[0]);
-	return k;
+	console.log(array[0]);
+	return array;
 }
 
-function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
-{
-	var json = 
-	{
-		type:12,
-		address:"0",
-		data:[0]
-	};
-	var dry_obj = {DryBulbCurve:[0]};
-	var wet_obj = {WetBulbCurve:[0]};
-	var time_obj = {TimeCurve:[0]};
+// function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
+// {
+// 	var json = 
+// 	{
+// 		type:12,
+// 		address:"0",
+// 		data:[0]
+// 	};
+// 	var dry_obj = {DryBulbCurve:[0]};
+// 	var wet_obj = {WetBulbCurve:[0]};
+// 	var time_obj = {TimeCurve:[0]};
 
-	json.address = MidwareID;
-	json.data[0] = ((TargetID >> 8) & 0x00ff);
-	json.data[1] = (TargetID & 0x00ff);
+// 	json.address = MidwareID;
+// 	json.data[0] = ((TargetID >> 8) & 0x00ff);
+// 	json.data[1] = (TargetID & 0x00ff);
 
-	dry_obj.DryBulbCurve = DryBulbCurveValue;
-	wet_obj.WetBulbCurve = WetBulbCurveValue;
-	time_obj.TimeCurve = TimeCurveValue;
+// 	dry_obj.DryBulbCurve = DryBulbCurveValue;
+// 	wet_obj.WetBulbCurve = WetBulbCurveValue;
+// 	time_obj.TimeCurve = TimeCurveValue;
 
-	json.data[2] = dry_obj;
-	json.data[3] = wet_obj;
-	json.data[4] = time_obj;
+// 	json.data[2] = dry_obj;
+// 	json.data[3] = wet_obj;
+// 	json.data[4] = time_obj;
 	
-	return json;
-}
+// 	return json;
+// }
 
 
 
