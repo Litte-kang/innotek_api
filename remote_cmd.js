@@ -8,7 +8,7 @@
  *@param 	{Array }  timeCurveValue.
  *@return	{Json  }  json.
  */
-modules.exports.makeConfigCurveCmd = function makeConfigCurveCmd(midwareID, targetID, dryBulbCurveValue, wetBulbCurveValue, timeCurveValue)
+module.exports.makeConfigCurveCmd = function makeConfigCurveCmd(midwareID, targetID, dryBulbCurveValue, wetBulbCurveValue, timeCurveValue)
 {
 	var json = 
 	{
@@ -42,7 +42,7 @@ modules.exports.makeConfigCurveCmd = function makeConfigCurveCmd(midwareID, targ
  *@param 	{Number}  size.
  *@return	{Json  }  json.
  */
-modules.exports.makeConfigTobaSizeCmd = function makeConfigTobaSizeCmd(midwareID, targetID, size)
+module.exports.makeConfigTobaSizeCmd = function makeConfigTobaSizeCmd(midwareID, targetID, size)
 {
 	var json = 
 	{
@@ -67,7 +67,7 @@ modules.exports.makeConfigTobaSizeCmd = function makeConfigTobaSizeCmd(midwareID
  *@param 	{Number}  targetID.
  *@return	{Json  }  json.
  */
-modules.exports.makeSearchStatusCmd = function makeSearchStatusCmd(midwareID, targetID)
+module.exports.makeSearchStatusCmd = function makeSearchStatusCmd(midwareID, targetID)
 {
 	var isBelow = 0;
 	var json = 
@@ -95,7 +95,7 @@ modules.exports.makeSearchStatusCmd = function makeSearchStatusCmd(midwareID, ta
  *@param 	{Number}  fwType.
  *@return	{Json  }  json.
  */
-modules.exports.makeFwUpdateCmd = function makeFwUpdateCmd(midwareID, targetID, fwSize, fwVersion, fwType)
+module.exports.makeFwUpdateCmd = function makeFwUpdateCmd(midwareID, targetID, fwSize, fwVersion, fwType)
 {
 	var json = 
 	{
@@ -122,7 +122,7 @@ modules.exports.makeFwUpdateCmd = function makeFwUpdateCmd(midwareID, targetID, 
  *@param 	{Number}  val.
  *@return	{Json  }  json.
  */
-modules.exports.makeConfigCurvePhaseCmd = function makeConfigCurvePhaseCmd(midwareID, targetID, val)
+module.exports.makeConfigCurvePhaseCmd = function makeConfigCurvePhaseCmd(midwareID, targetID, val)
 {
 	var json = 
 	{
