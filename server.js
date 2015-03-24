@@ -14,8 +14,6 @@ var Prefer = require('./db/schemas/prefer_rooms');
 var RemoteCmd = require('./remote_cmd');
 
 
-var client = require('./client');
-
 var PORT = 8080;
 
 var server = restify.createServer({
