@@ -10,8 +10,8 @@ var Address = require('./db/schemas/address');
 var State = require('./db/schemas/state');
 var Curve = require('./db/schemas/curve');
 var Information = require('./db/schemas/information');
-var Prefer = require('./db/schemas/prefer_rooms')
-
+var Prefer = require('./db/schemas/prefer_rooms');
+var RemoteCmd = require('./remote_cmd');
 
 
 var client = require('./client');
@@ -247,11 +247,10 @@ server.post('/commands', function(req, res, next){
 
 	var address    = req.params.address;
 	var midAddress = req.params.midAddress;
-	var infoType = req.params.infoType;
+	var infoType =  parseInt(req.params.infoType);
 
 	switch(infoType){
 		case 12:
-			var ip;
 			var drys;
 			var wets;
 			var times;
@@ -263,24 +262,49 @@ server.post('/commands', function(req, res, next){
 	
 			json = MakeConfigCurve(midAddress, address, drys, wets, times);
 
-			Command.findOneAndUpdate({address: address, midAddress: midAddress},
-						   {infoType: 12, address: address, midAddress: midAddress, command: json },
-						   {upsert: true},
-						   function(err, data){
-						   		if(err){
-						   			res.send(500);
-						   			next(err);
-						   		}else{
-						   			console.log('Curve saved success');
-						   			res.send(200);
-									next()
-						   		}
-						   });
+			saveOrUpdateCommand(address, midAddress, infoType, json);
+			// Command.findOneAndUpdate({address: address, midAddress: midAddress},
+			// 			   {infoType: 12, address: address, midAddress: midAddress, command: json },
+			// 			   {upsert: true},
+			// 			   function(err, data){
+			// 			   		if(err){
+			// 			   			res.send(500);
+			// 			   			next(err);
+			// 			   		}else{
+			// 			   			console.log('Curve saved success');
+			// 			   			res.send(200);
+			// 						next()
+			// 			   		}
+			// 			   });
+			break;
+
+		case 16:
+			var stage = req.params.stage;
+			json = RemoteCmd.makeConfigCurvePhaseCmd(midAddress, address, stage);
+			saveOrUpdateCommand(address, midAddress, infoType, json);
 			break;
 	}
 
 
 });
+
+function saveOrUpdateCommand(address, midAddress, infoType, content){
+	Command.findOneAndUpdate( {address: address, midAddress: midAddress},
+							  {infoType: infoType, address: address, midAddress: midAddress, command: content },
+						      {upsert: true},
+						   	  function(err, data){
+						   	    if(err){
+						   	      res.send(500);
+						   		  next(err);
+						   	    }else{
+						   		  console.log('Curve saved success');
+						   		  res.send(200);
+								  next()
+						   		}
+						   	  }
+						   	);
+}
+
 
 function generateValues(stringForArray){
 	console.log(stringForArray);

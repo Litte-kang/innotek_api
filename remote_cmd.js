@@ -69,6 +69,7 @@ modules.exports.makeConfigTobaSizeCmd = function makeConfigTobaSizeCmd(midwareID
  */
 modules.exports.makeSearchStatusCmd = function makeSearchStatusCmd(midwareID, targetID)
 {
+	var isBelow = 0;
 	var json = 
 	{
 		type:8,
@@ -79,7 +80,7 @@ modules.exports.makeSearchStatusCmd = function makeSearchStatusCmd(midwareID, ta
 	json.data[0] = ((targetID >> 8) & 0x00ff);
 	json.data[1] = (targetID & 0x00ff);
 
-	json.data[2] = IsBelow;
+	json.data[2] = isBelow;
 
 	return json;
 }
