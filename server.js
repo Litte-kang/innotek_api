@@ -279,7 +279,7 @@ server.post('/commands', function(req, res, next){
 			break;
 
 		case 16:
-			var stage = req.params.stage;
+			var stage = req.params.target;
 			json = RemoteCmd.makeConfigCurvePhaseCmd(midAddress, address, stage);
 			saveOrUpdateCommand(address, midAddress, infoType, json);
 			break;
