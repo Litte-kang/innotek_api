@@ -258,7 +258,7 @@ server.post('/commands', function(req, res, next){
 			wets  = generateValues(req.params.wet);
 			times = generateValues(req.params.sTime);
 	
-			json = RemoteCmd.makeConfigCurveCmd(midAddress, address, drys, wets, times);
+			json = MakeConfigCurve(midAddress, address, drys, wets, times);
 			console.log(JSON.stringify(json));
 			saveOrUpdateCommand(address, midAddress, infoType, json);
 			// Command.findOneAndUpdate({address: address, midAddress: midAddress},
@@ -306,7 +306,7 @@ function saveOrUpdateCommand(address, midAddress, infoType, content){
 
 
 function generateValues(stringForArray){
-	console.log(stringForArray);
+	console.log("request string :" + stringForArray);
 	var array = [];
 	var lastIndex = stringForArray.lastIndexOf(',');
 
@@ -321,36 +321,36 @@ function generateValues(stringForArray){
 		});
 	}
 	
-	console.log(array[0]);
+	console.log("returned array: " + array[0]);
 	return array;
 }
 
-// function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
-// {
-// 	var json = 
-// 	{
-// 		type:12,
-// 		address:"0",
-// 		data:[0]
-// 	};
-// 	var dry_obj = {DryBulbCurve:[0]};
-// 	var wet_obj = {WetBulbCurve:[0]};
-// 	var time_obj = {TimeCurve:[0]};
+function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
+{
+	var json = 
+	{
+		type:12,
+		address:"0",
+		data:[0]
+	};
+	var dry_obj = {DryBulbCurve:[0]};
+	var wet_obj = {WetBulbCurve:[0]};
+	var time_obj = {TimeCurve:[0]};
 
-// 	json.address = MidwareID;
-// 	json.data[0] = ((TargetID >> 8) & 0x00ff);
-// 	json.data[1] = (TargetID & 0x00ff);
+	json.address = MidwareID;
+	json.data[0] = ((TargetID >> 8) & 0x00ff);
+	json.data[1] = (TargetID & 0x00ff);
 
-// 	dry_obj.DryBulbCurve = DryBulbCurveValue;
-// 	wet_obj.WetBulbCurve = WetBulbCurveValue;
-// 	time_obj.TimeCurve = TimeCurveValue;
+	dry_obj.DryBulbCurve = DryBulbCurveValue;
+	wet_obj.WetBulbCurve = WetBulbCurveValue;
+	time_obj.TimeCurve = TimeCurveValue;
 
-// 	json.data[2] = dry_obj;
-// 	json.data[3] = wet_obj;
-// 	json.data[4] = time_obj;
+	json.data[2] = dry_obj;
+	json.data[3] = wet_obj;
+	json.data[4] = time_obj;
 	
-// 	return json;
-// }
+	return json;
+}
 
 
 
