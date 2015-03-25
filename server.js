@@ -258,7 +258,7 @@ server.post('/commands', function(req, res, next){
 			wets  = generateValues(req.params.wet);
 			times = generateValues(req.params.sTime);
 	
-			json = MakeConfigCurve(midAddress, address, drys, wets, times);
+			json = RemoteCmd.makeConfigCurveCmd(midAddress, address, drys, wets, times);
 			console.log(JSON.stringify(json));
 			saveOrUpdateCommand(address, midAddress, infoType, json);
 			// Command.findOneAndUpdate({address: address, midAddress: midAddress},
