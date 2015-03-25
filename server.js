@@ -307,22 +307,22 @@ function saveOrUpdateCommand(address, midAddress, infoType, content){
 
 function generateValues(stringForArray){
 	console.log("request string :" + stringForArray);
-	var array = [];
+	var k = [];
 	var lastIndex = stringForArray.lastIndexOf(',');
 
 	if(lastIndex == stringForArray.length - 1){
 		var temp = stringForArray.substring(0, lastIndex);
 		temp.split(',').forEach(function(element, index, array){
-			array.push(parseFloat(element));
+			k.push(parseFloat(element));
 		});
 	}else{
 		stringForArray.split(',').forEach(function(element, index, array){
-			array.push(parseFloat(element));
+			k.push(parseFloat(element));
 		});
 	}
 	
-	console.log("returned array: " + array[0]);
-	return array;
+	console.log("returned array: " + k[0]);
+	return k;
 }
 
 function MakeConfigCurve(MidwareID, TargetID, DryBulbCurveValue, WetBulbCurveValue, TimeCurveValue)
