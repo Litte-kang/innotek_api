@@ -259,7 +259,7 @@ server.post('/commands', function(req, res, next){
 			times = generateValues(req.params.sTime);
 	
 			json = MakeConfigCurve(midAddress, address, drys, wets, times);
-
+			console.log(JSON.stringify(json));
 			saveOrUpdateCommand(address, midAddress, infoType, json);
 			// Command.findOneAndUpdate({address: address, midAddress: midAddress},
 			// 			   {infoType: 12, address: address, midAddress: midAddress, command: json },
@@ -279,6 +279,7 @@ server.post('/commands', function(req, res, next){
 		case 16:
 			var stage = req.params.target;
 			json = RemoteCmd.makeConfigCurvePhaseCmd(midAddress, address, stage);
+			console.log(JSON.stringify(json));
 			saveOrUpdateCommand(address, midAddress, infoType, json);
 			break;
 	}
