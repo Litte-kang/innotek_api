@@ -134,7 +134,7 @@ module.exports.makeConfigCurvePhaseCmd = function makeConfigCurvePhaseCmd(midwar
 	json.data[0] = ((targetID >> 8) & 0x00ff);
 	json.data[1] = (targetID & 0x00ff);
 
-	json.data[2] = val;
+	json.data[2] = parseInt(val);
 	json.data[3] = 0;
 
 	return json;
